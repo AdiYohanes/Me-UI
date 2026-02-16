@@ -147,8 +147,8 @@ export default function BookingBar() {
               <button
                 className={`relative z-10 w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-all duration-200
                     ${isStart || isEnd ? "bg-blue-600 text-white shadow-lg shadow-blue-600/30 scale-105" : ""}
-                    ${!isStart && !isEnd && !isRange ? "text-slate-300 hover:bg-slate-800 hover:text-white" : ""}
-                    ${isRange ? "text-blue-400" : ""}
+                    ${!isStart && !isEnd && !isRange ? "text-slate-600 hover:bg-slate-100 hover:text-slate-900" : ""}
+                    ${isRange ? "text-blue-600" : ""}
                 `}
                 onClick={(e) => {
                   e.stopPropagation();
@@ -161,9 +161,9 @@ export default function BookingBar() {
           );
         })}
       </div>
-      <div className="mt-4 flex items-center justify-between text-xs text-slate-400 border-t border-slate-800 pt-3">
+      <div className="mt-4 flex items-center justify-between text-xs text-slate-500 border-t border-slate-200 pt-3">
         <span>{dates.start ? `Apr ${dates.start}` : "Select check-in"}</span>
-        <span className="text-slate-600">→</span>
+        <span className="text-slate-400">→</span>
         <span>{dates.end ? `Apr ${dates.end}` : "Select check-out"}</span>
       </div>
     </div>
@@ -172,15 +172,15 @@ export default function BookingBar() {
   return (
     <div
       ref={containerRef}
-      className="w-full max-w-4xl bg-slate-950 p-6 rounded-[2rem] border border-slate-800/50 shadow-2xl relative select-none"
+      className="w-full max-w-4xl bg-white p-6 rounded-[2rem] border border-slate-200 shadow-2xl relative select-none"
     >
       {/* Tabs */}
-      <div className="flex gap-8 mb-6 px-4 border-b border-slate-800/50 pb-2">
+      <div className="flex gap-8 mb-6 px-4 border-b border-slate-200 pb-2">
         {["Stays", "Flights", "Cars", "Experiences"].map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab.toLowerCase())}
-            className={`text-sm font-bold transition-all relative pb-4 px-1 ${activeTab === tab.toLowerCase() ? "text-white" : "text-slate-500 hover:text-slate-300"}`}
+            className={`text-sm font-bold transition-all relative pb-4 px-1 ${activeTab === tab.toLowerCase() ? "text-slate-900" : "text-slate-500 hover:text-slate-700"}`}
           >
             {tab}
             {activeTab === tab.toLowerCase() && (
@@ -191,23 +191,23 @@ export default function BookingBar() {
       </div>
 
       {/* Search Bar Container */}
-      <div className="bg-slate-900/80 backdrop-blur-md p-2 rounded-[1.5rem] border border-slate-800 flex flex-col md:flex-row gap-2 relative z-10 shadow-xl">
+      <div className="bg-slate-50 backdrop-blur-md p-2 rounded-[1.5rem] border border-slate-200 flex flex-col md:flex-row gap-2 relative z-10 shadow-xl">
         {/* 1. Location Field */}
         <div
-          className={`field-location flex-[1.5] relative p-4 rounded-2xl transition-all cursor-pointer border ${activeField === "location" ? "bg-slate-800 border-slate-700 shadow-lg" : "border-transparent hover:bg-slate-800/30"}`}
+          className={`field-location flex-[1.5] relative p-4 rounded-2xl transition-all cursor-pointer border ${activeField === "location" ? "bg-white border-slate-300 shadow-lg" : "border-transparent hover:bg-white/50"}`}
           onClick={() => handleFieldClick("location")}
         >
           <div className="flex items-center gap-4">
             <div
-              className={`p-3 rounded-xl transition-all duration-300 ${activeField === "location" ? "bg-blue-600 text-white shadow-lg shadow-blue-600/20" : "bg-slate-800 text-slate-400 group-hover:bg-slate-700"}`}
+              className={`p-3 rounded-xl transition-all duration-300 ${activeField === "location" ? "bg-blue-600 text-white shadow-lg shadow-blue-600/20" : "bg-slate-100 text-slate-600 group-hover:bg-slate-200"}`}
             >
               <MapPin className="w-5 h-5" />
             </div>
             <div className="text-left overflow-hidden">
-              <p className="text-xs text-slate-400 font-medium tracking-wide uppercase">
+              <p className="text-xs text-slate-500 font-medium tracking-wide uppercase">
                 Where
               </p>
-              <p className="text-base text-white font-bold truncate">
+              <p className="text-base text-slate-900 font-bold truncate">
                 {location}
               </p>
             </div>
@@ -215,32 +215,32 @@ export default function BookingBar() {
 
           {/* Location Dropdown */}
           {activeField === "location" && (
-            <div className="absolute top-[calc(100%+1rem)] left-0 w-[320px] bg-slate-900/95 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-2 shadow-2xl z-50 animate-in fade-in slide-in-from-top-4 duration-300">
+            <div className="absolute top-[calc(100%+1rem)] left-0 w-[320px] bg-white backdrop-blur-xl border border-slate-200 rounded-2xl p-2 shadow-2xl z-50 animate-in fade-in slide-in-from-top-4 duration-300">
               <div className="p-2 mb-2">
-                <button className="w-full flex items-center gap-3 text-blue-400 text-sm font-bold p-3 hover:bg-blue-500/10 rounded-xl transition-colors">
+                <button className="w-full flex items-center gap-3 text-blue-600 text-sm font-bold p-3 hover:bg-blue-50 rounded-xl transition-colors">
                   <LocateFixed className="w-4 h-4" /> Use my current location
                 </button>
               </div>
-              <div className="h-[1px] bg-slate-800 mx-4 mb-2"></div>
-              <div className="max-h-[240px] overflow-y-auto pr-1 space-y-1 custom-scrollbar">
+              <div className="h-[1px] bg-slate-200 mx-4 mb-2"></div>
+              <div className="max-h-[280px] overflow-y-auto pr-1 space-y-1 custom-scrollbar">
                 {locations.map((loc, i) => (
                   <div
                     key={i}
-                    className="flex items-center gap-4 p-3 hover:bg-slate-800 rounded-xl cursor-pointer transition-all group"
+                    className="flex items-center gap-4 p-3 hover:bg-slate-50 rounded-xl cursor-pointer transition-all group"
                     onClick={(e) => {
                       e.stopPropagation();
                       setLocation(loc.name);
                       setActiveField("dates"); // Auto-advance
                     }}
                   >
-                    <span className="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-slate-800 group-hover:bg-slate-700 rounded-xl text-lg transition-colors border border-slate-700 group-hover:border-slate-600">
+                    <span className="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-slate-100 group-hover:bg-slate-200 rounded-xl text-lg transition-colors border border-slate-200 group-hover:border-slate-300">
                       {loc.icon}
                     </span>
                     <div>
-                      <div className="text-sm text-white font-bold">
+                      <div className="text-sm text-slate-900 font-bold">
                         {loc.name}
                       </div>
-                      <div className="text-xs text-slate-400">{loc.desc}</div>
+                      <div className="text-xs text-slate-500">{loc.desc}</div>
                     </div>
                     {location === loc.name && (
                       <CheckCircle2 className="w-4 h-4 text-blue-500 ml-auto" />
@@ -253,29 +253,29 @@ export default function BookingBar() {
         </div>
 
         {/* Separator */}
-        <div className="hidden md:block w-[1px] bg-slate-800 my-3"></div>
+        <div className="hidden md:block w-[1px] bg-slate-200 my-3"></div>
 
         {/* 2. Dates Field */}
         <div
-          className={`field-dates flex-[1.2] relative p-4 rounded-2xl transition-all cursor-pointer border ${activeField === "dates" ? "bg-slate-800 border-slate-700 shadow-lg" : "border-transparent hover:bg-slate-800/30"}`}
+          className={`field-dates flex-[1.2] relative p-4 rounded-2xl transition-all cursor-pointer border ${activeField === "dates" ? "bg-white border-slate-300 shadow-lg" : "border-transparent hover:bg-white/50"}`}
           onClick={() => handleFieldClick("dates")}
         >
           <div className="flex items-center gap-4">
             <div
-              className={`p-3 rounded-xl transition-all duration-300 ${activeField === "dates" ? "bg-blue-600 text-white shadow-lg shadow-blue-600/20" : "bg-slate-800 text-slate-400"}`}
+              className={`p-3 rounded-xl transition-all duration-300 ${activeField === "dates" ? "bg-blue-600 text-white shadow-lg shadow-blue-600/20" : "bg-slate-100 text-slate-600"}`}
             >
               <Calendar className="w-5 h-5" />
             </div>
             <div className="text-left">
-              <p className="text-xs text-slate-400 font-medium tracking-wide uppercase">
+              <p className="text-xs text-slate-500 font-medium tracking-wide uppercase">
                 When
               </p>
-              <div className="flex gap-2 text-sm text-white font-bold whitespace-nowrap">
-                <span className={!dates.start ? "text-slate-500" : ""}>
+              <div className="flex gap-2 text-sm text-slate-900 font-bold whitespace-nowrap">
+                <span className={!dates.start ? "text-slate-400" : ""}>
                   {dates.start ? `Apr ${dates.start}` : "Check-in"}
                 </span>
-                <span className="text-slate-600">—</span>
-                <span className={!dates.end ? "text-slate-500" : ""}>
+                <span className="text-slate-400">—</span>
+                <span className={!dates.end ? "text-slate-400" : ""}>
                   {dates.end ? `Apr ${dates.end}` : "Check-out"}
                 </span>
               </div>
@@ -284,14 +284,14 @@ export default function BookingBar() {
 
           {/* Date Picker Popover */}
           {activeField === "dates" && (
-            <div className="absolute top-[calc(100%+1rem)] left-0 md:left-1/2 md:-translate-x-1/2 w-[340px] bg-slate-900/95 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-5 shadow-2xl z-50 animate-in fade-in slide-in-from-top-4 duration-300">
+            <div className="absolute top-[calc(100%+1rem)] left-0 md:left-1/2 md:-translate-x-1/2 w-[340px] bg-white backdrop-blur-xl border border-slate-200 rounded-2xl p-5 shadow-2xl z-50 animate-in fade-in slide-in-from-top-4 duration-300">
               <div className="flex justify-between items-center mb-6">
-                <h5 className="text-white font-bold text-lg">April 2024</h5>
-                <div className="flex gap-1 bg-slate-800 p-1 rounded-lg">
-                  <button className="p-1.5 hover:bg-slate-700 rounded-md text-slate-400 hover:text-white transition-colors">
+                <h5 className="text-slate-900 font-bold text-lg">April 2024</h5>
+                <div className="flex gap-1 bg-slate-100 p-1 rounded-lg">
+                  <button className="p-1.5 hover:bg-slate-200 rounded-md text-slate-600 hover:text-slate-900 transition-colors">
                     <ChevronDown className="w-4 h-4 rotate-90" />
                   </button>
-                  <button className="p-1.5 hover:bg-slate-700 rounded-md text-slate-400 hover:text-white transition-colors">
+                  <button className="p-1.5 hover:bg-slate-200 rounded-md text-slate-600 hover:text-slate-900 transition-colors">
                     <ChevronDown className="w-4 h-4 -rotate-90" />
                   </button>
                 </div>
@@ -299,7 +299,7 @@ export default function BookingBar() {
               {renderCalendar()}
               <div className="mt-4 flex gap-2">
                 <button
-                  className="flex-1 py-2 rounded-lg text-xs font-bold text-slate-400 hover:text-slate-300 hover:bg-slate-800 transition-colors"
+                  className="flex-1 py-2 rounded-lg text-xs font-bold text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors"
                   onClick={(e) => {
                     e.stopPropagation();
                     setDates({ start: null, end: null });
@@ -321,24 +321,24 @@ export default function BookingBar() {
           )}
         </div>
 
-        <div className="hidden md:block w-[1px] bg-slate-800 my-3"></div>
+        <div className="hidden md:block w-[1px] bg-slate-200 my-3"></div>
 
         {/* 3. Guests Field */}
         <div
-          className={`field-guests flex-1 relative p-4 rounded-2xl transition-all cursor-pointer border ${activeField === "guests" ? "bg-slate-800 border-slate-700 shadow-lg" : "border-transparent hover:bg-slate-800/30"}`}
+          className={`field-guests flex-1 relative p-4 rounded-2xl transition-all cursor-pointer border ${activeField === "guests" ? "bg-white border-slate-300 shadow-lg" : "border-transparent hover:bg-white/50"}`}
           onClick={() => handleFieldClick("guests")}
         >
           <div className="flex items-center gap-4">
             <div
-              className={`p-3 rounded-xl transition-all duration-300 ${activeField === "guests" ? "bg-blue-600 text-white shadow-lg shadow-blue-600/20" : "bg-slate-800 text-slate-400"}`}
+              className={`p-3 rounded-xl transition-all duration-300 ${activeField === "guests" ? "bg-blue-600 text-white shadow-lg shadow-blue-600/20" : "bg-slate-100 text-slate-600"}`}
             >
               <Users className="w-5 h-5" />
             </div>
             <div className="text-left">
-              <p className="text-xs text-slate-400 font-medium tracking-wide uppercase">
+              <p className="text-xs text-slate-500 font-medium tracking-wide uppercase">
                 Who
               </p>
-              <p className="text-sm text-white font-bold">
+              <p className="text-sm text-slate-900 font-bold">
                 {guests.adults + guests.children} Guests
               </p>
             </div>
@@ -346,20 +346,20 @@ export default function BookingBar() {
 
           {/* Guest Counter Popover */}
           {activeField === "guests" && (
-            <div className="absolute top-[calc(100%+1rem)] right-0 w-[280px] bg-slate-900/95 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-5 shadow-2xl z-50 animate-in fade-in slide-in-from-top-4 duration-300">
+            <div className="absolute top-[calc(100%+1rem)] right-0 w-[280px] bg-white backdrop-blur-xl border border-slate-200 rounded-2xl p-5 shadow-2xl z-50 animate-in fade-in slide-in-from-top-4 duration-300">
               <div
                 key="adults"
                 className="flex items-center justify-between mb-4"
               >
                 <div>
-                  <span className="block text-white font-bold">Adults</span>
-                  <span className="text-xs text-slate-400">
+                  <span className="block text-slate-900 font-bold">Adults</span>
+                  <span className="text-xs text-slate-500">
                     Ages 13 or above
                   </span>
                 </div>
-                <div className="flex items-center gap-3 bg-slate-800 rounded-lg p-1">
+                <div className="flex items-center gap-3 bg-slate-100 rounded-lg p-1">
                   <button
-                    className="w-8 h-8 flex items-center justify-center rounded-md text-slate-400 hover:bg-slate-700 hover:text-white transition-colors disabled:opacity-30"
+                    className="w-8 h-8 flex items-center justify-center rounded-md text-slate-600 hover:bg-slate-200 hover:text-slate-900 transition-colors disabled:opacity-30"
                     onClick={(e) => {
                       e.stopPropagation();
                       setGuests({
@@ -371,11 +371,11 @@ export default function BookingBar() {
                   >
                     <Minus className="w-4 h-4" />
                   </button>
-                  <span className="text-white font-bold w-4 text-center">
+                  <span className="text-slate-900 font-bold w-4 text-center">
                     {guests.adults}
                   </span>
                   <button
-                    className="w-8 h-8 flex items-center justify-center rounded-md text-slate-400 hover:bg-slate-700 hover:text-white transition-colors"
+                    className="w-8 h-8 flex items-center justify-center rounded-md text-slate-600 hover:bg-slate-200 hover:text-slate-900 transition-colors"
                     onClick={(e) => {
                       e.stopPropagation();
                       setGuests({ ...guests, adults: guests.adults + 1 });
@@ -387,16 +387,18 @@ export default function BookingBar() {
               </div>
 
               {/* Divider */}
-              <div className="h-[1px] bg-slate-800 my-4"></div>
+              <div className="h-[1px] bg-slate-200 my-4"></div>
 
               <div key="children" className="flex items-center justify-between">
                 <div>
-                  <span className="block text-white font-bold">Children</span>
-                  <span className="text-xs text-slate-400">Ages 2-12</span>
+                  <span className="block text-slate-900 font-bold">
+                    Children
+                  </span>
+                  <span className="text-xs text-slate-500">Ages 2-12</span>
                 </div>
-                <div className="flex items-center gap-3 bg-slate-800 rounded-lg p-1">
+                <div className="flex items-center gap-3 bg-slate-100 rounded-lg p-1">
                   <button
-                    className="w-8 h-8 flex items-center justify-center rounded-md text-slate-400 hover:bg-slate-700 hover:text-white transition-colors disabled:opacity-30"
+                    className="w-8 h-8 flex items-center justify-center rounded-md text-slate-600 hover:bg-slate-200 hover:text-slate-900 transition-colors disabled:opacity-30"
                     onClick={(e) => {
                       e.stopPropagation();
                       setGuests({
@@ -408,11 +410,11 @@ export default function BookingBar() {
                   >
                     <Minus className="w-4 h-4" />
                   </button>
-                  <span className="text-white font-bold w-4 text-center">
+                  <span className="text-slate-900 font-bold w-4 text-center">
                     {guests.children}
                   </span>
                   <button
-                    className="w-8 h-8 flex items-center justify-center rounded-md text-slate-400 hover:bg-slate-700 hover:text-white transition-colors"
+                    className="w-8 h-8 flex items-center justify-center rounded-md text-slate-600 hover:bg-slate-200 hover:text-slate-900 transition-colors"
                     onClick={(e) => {
                       e.stopPropagation();
                       setGuests({ ...guests, children: guests.children + 1 });

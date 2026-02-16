@@ -152,7 +152,7 @@ const ShowcasePage = () => {
           </div>
 
           {/* Content */}
-          <div className="flex-1 relative overflow-hidden flex flex-col items-center justify-center p-8 bg-slate-50/30">
+          <div className="flex-1 relative flex flex-col items-center justify-center p-8 bg-slate-50/30 overflow-visible">
             {/* Simple Grid Background */}
             <div
               className="absolute inset-0 pointer-events-none opacity-[0.03]"
@@ -165,7 +165,7 @@ const ShowcasePage = () => {
             <div
               className={`relative z-10 w-full max-w-4xl transition-all duration-300 ${activeView === "code" ? "hidden" : "block"}`}
             >
-              <div className="flex items-center justify-center min-h-[400px]">
+              <div className="flex items-center justify-center min-h-[500px]">
                 {activeCompData.Component ? <activeCompData.Component /> : null}
               </div>
 

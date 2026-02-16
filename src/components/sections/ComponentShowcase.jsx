@@ -32,7 +32,7 @@ const ShowcaseCard = ({
 
   return (
     <div
-      className={`relative z-20 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 flex flex-col overflow-hidden transition-colors duration-300 ${className}`}
+      className={`relative z-20 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 flex flex-col overflow-visible transition-colors duration-300 ${className}`}
     >
       {/* Card Header */}
       <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/50 backdrop-blur-sm">
@@ -70,11 +70,11 @@ const ShowcaseCard = ({
 
       {/* Card Content Container - Uses grid stack for absolute positioning overlap or simple flex */}
       <div
-        className={`relative flex-1 flex flex-col ${minHeight} overflow-hidden`}
+        className={`relative flex-1 flex flex-col ${minHeight} overflow-visible`}
       >
         {/* PREVIEW MODE */}
         <div
-          className={`absolute inset-0 flex items-center justify-center p-10 bg-slate-50 dark:bg-slate-950 transition-all duration-300 ${activeView === "preview" ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"}`}
+          className={`absolute inset-0 flex items-start justify-center pt-6 pb-10 px-10 bg-slate-50 dark:bg-slate-950 transition-all duration-300 overflow-visible ${activeView === "preview" ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"}`}
         >
           {/* Background Grid Effect */}
           <div className="absolute inset-0 overflow-hidden">
@@ -194,6 +194,7 @@ const ComponentShowcase = () => {
               title="Booking Bar"
               icon="🏨"
               className="md:col-span-4"
+              minHeight="min-h-[600px]"
               code={componentSourceCodes["BookingBar"]}
             >
               <BookingBar />
