@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-slate-950 text-slate-100 antialiased;
+    overflow-x: hidden;
+  }
+
+  section {
+    content-visibility: auto;
+    contain-intrinsic-size: 800px;
+  }
+
+  .will-change-transform {
+    will-change: transform, opacity;
+  }
+}

@@ -1,0 +1,231 @@
+import React, { useRef, useState } from "react";
+import { Link } from "react-router-dom";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Send, Check, ArrowRight, Github, Twitter, Heart } from "lucide-react";
+
+gsap.registerPlugin(ScrollTrigger);
+
+const footerLinks = {
+  Resources: [
+    { label: "Documentation", href: "#" },
+    { label: "Component Gallery", href: "#" },
+    { label: "Getting Started", href: "#" },
+    { label: "Changelog", href: "#" },
+  ],
+  Community: [
+    { label: "GitHub", href: "#", icon: <Github className="w-3.5 h-3.5" /> },
+    {
+      label: "Twitter/X",
+      href: "#",
+      icon: <Twitter className="w-3.5 h-3.5" />,
+    },
+    { label: "Threads", href: "#" },
+    { label: "Discord", href: "#" },
+  ],
+  Legal: [
+    { label: "License (MIT)", href: "#" },
+    { label: "Privacy Policy", href: "#" },
+  ],
+};
+
+const CtaFooter = () => {
+  const containerRef = useRef(null);
+
+  const ctaRef = useRef(null);
+  const [email, setEmail] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
+  useGSAP(
+    () => {
+      gsap.set(ctaRef.current, { y: 40, opacity: 0 });
+
+      gsap.to(ctaRef.current, {
+        scrollTrigger: {
+          trigger: ctaRef.current,
+          start: "top 90%",
+          once: true,
+        },
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        ease: "power3.out",
+      });
+    },
+    { scope: containerRef },
+  );
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (email) {
+      setSubmitted(true);
+      setTimeout(() => setSubmitted(false), 3000);
+      setEmail("");
+    }
+  };
+
+  return (
+    <section
+      ref={containerRef}
+      className="relative overflow-hidden transition-colors duration-300"
+    >
+      {/* ── CTA + Social Proof Area ─────────────────── */}
+      <div className="py-20 bg-white dark:bg-slate-900 relative transition-colors duration-300">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-500/5 to-transparent pointer-events-none"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[400px] bg-blue-500/8 rounded-full blur-[80px] pointer-events-none"></div>
+
+        <div className="container mx-auto px-6">
+          {/* Main CTA */}
+          <div ref={ctaRef} className="max-w-2xl mx-auto text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-900 dark:text-white">
+              Siap Bikin Website{" "}
+              <span className="bg-gradient-to-r from-blue-600 to-cyan-500 dark:from-blue-400 dark:to-cyan-400 bg-clip-text text-transparent">
+                Lebih Interaktif?
+              </span>
+            </h2>
+            <p className="text-slate-600 dark:text-slate-400 text-base max-w-lg mx-auto mb-8 leading-relaxed">
+              Mulai explore komponen gratis sekarang. Tidak perlu daftar, tidak
+              perlu bayar.{" "}
+              <strong className="text-slate-900 dark:text-slate-200">
+                It's that simple.
+              </strong>
+            </p>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-10">
+              <Link
+                to="/showcase"
+                className="px-7 py-3.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-semibold shadow-lg shadow-blue-500/25 transition-all hover:scale-105 active:scale-95 flex items-center gap-2"
+              >
+                Explore Components
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+              <button className="px-7 py-3.5 rounded-full bg-white text-slate-900 border border-slate-200 hover:bg-slate-50 hover:border-slate-300 dark:bg-slate-900 dark:hover:bg-slate-800 dark:text-white font-medium dark:border-slate-700 transition-all dark:hover:border-slate-600 flex items-center gap-2">
+                ⭐ Star on GitHub
+              </button>
+            </div>
+
+            {/* Newsletter */}
+            <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 dark:bg-slate-900/50 dark:border-slate-800 backdrop-blur-sm transition-colors">
+              <h3 className="text-base font-semibold text-slate-900 dark:text-white mb-1.5">
+                📬 Komponen Baru Setiap Minggu
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-xs mb-4 max-w-md mx-auto">
+                Subscribe — kami kirim komponen baru ke inbox kamu. No spam.
+              </p>
+
+              <form
+                onSubmit={handleSubmit}
+                className="flex flex-col sm:flex-row gap-2.5 max-w-md mx-auto"
+              >
+                <input
+                  type="email"
+                  placeholder="email@kamu.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="flex-1 px-4 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/50 dark:bg-slate-800 dark:border-slate-700 dark:text-white dark:placeholder-slate-500 transition-all text-sm"
+                  required
+                />
+                <button
+                  type="submit"
+                  className={`px-5 py-2.5 rounded-xl font-semibold text-sm transition-all flex items-center justify-center gap-2 ${
+                    submitted
+                      ? "bg-green-600 text-white"
+                      : "bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-500/20"
+                  }`}
+                >
+                  {submitted ? (
+                    <>
+                      <Check className="w-4 h-4" /> Subscribed!
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-4 h-4" /> Subscribe
+                    </>
+                  )}
+                </button>
+              </form>
+
+              <p className="text-[10px] text-slate-500 dark:text-slate-600 mt-3">
+                500+ developer Indonesia. Unsubscribe kapan saja.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Footer ──────────────────────────────────── */}
+      <footer className="pt-12 pb-6 bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 transition-colors duration-300">
+        <div className="container mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+            {/* Brand */}
+            <div className="md:col-span-1">
+              <div className="text-xl font-bold bg-gradient-to-r from-blue-700 to-cyan-600 dark:from-blue-400 dark:to-cyan-400 bg-clip-text text-transparent mb-2">
+                Me-UI
+              </div>
+              <p className="text-slate-600 dark:text-slate-500 text-sm leading-relaxed mb-3">
+                Koleksi komponen React siap pakai dengan animasi kelas dunia.
+                Made with 🇮🇩
+              </p>
+              <div className="flex gap-2">
+                <a
+                  href="https://github.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-8 h-8 rounded-lg bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 flex items-center justify-center text-slate-500 hover:text-slate-900 hover:border-slate-400 dark:text-slate-400 dark:hover:text-white dark:hover:border-slate-700 transition-all"
+                >
+                  <Github className="w-4 h-4" />
+                </a>
+                <a
+                  href="https://twitter.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-8 h-8 rounded-lg bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 flex items-center justify-center text-slate-500 hover:text-slate-900 hover:border-slate-400 dark:text-slate-400 dark:hover:text-white dark:hover:border-slate-700 transition-all"
+                >
+                  <Twitter className="w-4 h-4" />
+                </a>
+              </div>
+            </div>
+
+            {Object.entries(footerLinks).map(([title, links]) => (
+              <div key={title}>
+                <h4 className="text-sm font-semibold text-slate-900 dark:text-white mb-3 uppercase tracking-wider">
+                  {title}
+                </h4>
+                <ul className="space-y-2">
+                  {links.map((link, index) => (
+                    <li key={index}>
+                      <a
+                        href={link.href}
+                        className="text-slate-600 hover:text-blue-600 dark:text-slate-500 dark:hover:text-slate-300 transition-colors text-sm flex items-center gap-2"
+                      >
+                        {link.icon && link.icon}
+                        {link.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+
+          <div className="border-t border-slate-200 dark:border-slate-800 pt-6">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-3 text-sm text-slate-500 dark:text-slate-500">
+              <p className="flex items-center gap-1">
+                © 2026 Me-UI. Built with
+                <Heart className="w-3.5 h-3.5 text-red-500 fill-red-500 mx-0.5" />
+                using React & Tailwind.
+              </p>
+              <p className="flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                All systems operational
+              </p>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </section>
+  );
+};
+
+export default CtaFooter;
