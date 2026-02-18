@@ -4,11 +4,9 @@ const ThemeContext = createContext();
 
 export function ThemeProvider({ children }) {
   const [theme, setTheme] = useState(() => {
-    // Check local storage or prefer light mode by default as requested
+    // Always default to light mode
     if (typeof window !== "undefined") {
-      const savedTheme = localStorage.getItem("theme");
-      // Default to 'light' per user request, ignoring system preference for strict adherence
-      return savedTheme || "light";
+      localStorage.setItem("theme", "light");
     }
     return "light";
   });

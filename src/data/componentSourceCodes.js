@@ -412,5 +412,257 @@ export default function ModernDropdown() {
       </div>
     </div>
   );
+}`,
+  ProductCardSlide: `// Premium Component - Slide-to-Add Product Card
+// See full source in src/components/examples/ProductCardSlide.jsx
+import React, { useRef, useState, useEffect } from "react";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ShoppingCart, Star, ChevronDown, Check } from "lucide-react";
+
+const ProductCardSlide = () => {
+  const cardRef = useRef(null);
+  const imageRef = useRef(null);
+  const sliderRef = useRef(null);
+  const knobRef = useRef(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [isAdded, setIsAdded] = useState(false);
+  const [selectedColor, setSelectedColor] = useState(0);
+
+  const colors = [
+    { name: "LIME", dot: "bg-lime-400" },
+    { name: "SKY", dot: "bg-sky-400" },
+    { name: "ROSE", dot: "bg-rose-400" },
+    { name: "VIOLET", dot: "bg-violet-400" },
+  ];
+
+  useGSAP(() => {
+    gsap.from(cardRef.current, {
+      y: 40, opacity: 0, duration: 0.8, ease: "power3.out"
+    });
+    gsap.to(imageRef.current, {
+      y: -8, duration: 2.5, yoyo: true, repeat: -1, ease: "sine.inOut"
+    });
+  }, { scope: cardRef });
+
+  // Slide-to-add with drag interaction (mouse + touch)
+  // Full implementation includes:
+  // - Mouse/touch event handlers for drag
+  // - Elastic snap-back animation on incomplete slides
+  // - Success animation with color change + checkmark
+  // - Auto-reset after 2.5 seconds
+
+  return (
+    <div ref={cardRef} className="w-full max-w-[340px] bg-white rounded-3xl shadow-2xl">
+      {/* Header with gradient bg, color dropdown, price */}
+      {/* Product image with floating animation */}
+      {/* Star rating (4.5/5) + review count */}
+      {/* Product name + description */}
+      {/* Slide-to-add: draggable knob with cart icon */}
+    </div>
+  );
+};
+
+export default ProductCardSlide;`,
+  ProductCardPremium: `// Premium Component - Limited Edition Product Card
+// See full source in src/components/examples/ProductCardPremium.jsx
+import React, { useRef, useState } from "react";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+import { Heart, Minus, Plus, ShoppingBag, Flame } from "lucide-react";
+
+const ProductCardPremium = () => {
+  const cardRef = useRef(null);
+  const imageRef = useRef(null);
+  const [selectedColor, setSelectedColor] = useState(0);
+  const [quantity, setQuantity] = useState(1);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [isAdding, setIsAdding] = useState(false);
+
+  const colors = [
+    { name: "Midnight", ring: "ring-orange-500" },
+    { name: "Ocean", ring: "ring-cyan-400" },
+    { name: "Shadow", ring: "ring-slate-400" },
+    { name: "Fire", ring: "ring-red-500" },
+  ];
+
+  useGSAP(() => {
+    gsap.from(cardRef.current, {
+      y: 50, opacity: 0, duration: 0.8, ease: "power3.out"
+    });
+    gsap.to(imageRef.current, {
+      y: -10, rotation: 2, duration: 3,
+      yoyo: true, repeat: -1, ease: "sine.inOut"
+    });
+  }, { scope: cardRef });
+
+  // Add to cart with GSAP timeline animation:
+  // - Button scale bounce (elastic.out)
+  // - Text slide up + fade out
+  // - Success text slide in from below
+  // - Auto-reset after 1.5 seconds
+
+  return (
+    <div ref={cardRef} className="w-full max-w-[360px] bg-white rounded-3xl shadow-2xl overflow-hidden">
+      {/* Dark gradient header with product image */}
+      {/* LIMITED EDITION badge (amber) */}
+      {/* Heart/favorite button */}
+      {/* Color variant thumbnails with ring highlight */}
+      {/* Category label + price with strikethrough */}
+      {/* Description with accent border */}
+      {/* Inventory status bar (gradient orange-red) */}
+      {/* Quantity selector + ADD TO CART button */}
+    </div>
+  );
+};
+
+export default ProductCardPremium;`,
+  BookingBarPremium: `// Premium Component - Traveloka-Style Travel Booking Bar
+// See full source in src/components/examples/BookingBarPremium.jsx
+import React, { useRef, useState, useEffect, useCallback } from "react";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+import {
+  Plane, Hotel, Car, Train, MapPin, CalendarDays,
+  Users, Search, ArrowLeftRight, ChevronDown, ChevronRight,
+  Check, Minus, Plus, Loader2, Baby, User, Briefcase,
+} from "lucide-react";
+
+// Configurable via props:
+// categories - Tab items with emoji, label, and discount badges
+// cities     - From/To city options with code and country
+// classes    - Cabin class options (Economy, Business, etc.)
+// defaultFrom - Default departure city
+// promoBanner - Bottom promo banner with emoji, text, CTA
+// animate    - Enable/disable GSAP animations
+// onSearch   - Callback with all search parameters
+
+const BookingBarPremium = ({
+  categories = DEFAULT_CATEGORIES,
+  cities = DEFAULT_CITIES,
+  classes = DEFAULT_CLASSES,
+  defaultFrom = { city: "Jakarta", code: "JKTC" },
+  promoBanner = DEFAULT_PROMO,
+  animate = true,
+  onSearch = null,
+}) => {
+  // Features:
+  // - Multi-tab categories (Flights, Hotels, Trains, etc.) with discount badges
+  // - One-way / Round-trip radio toggle
+  // - From/To city selectors with search and swap button
+  // - Calendar date pickers with past-date blocking
+  // - Passenger counter (Adults, Children, Infants)
+  // - Cabin class selector (Economy, Business, First)
+  // - Animated "Let's Search" button
+  // - Promo banner with CTA
+
+  return (
+    <div className="w-full max-w-[980px] bg-white rounded-2xl shadow-xl border">
+      {/* Category Tabs with emojis and discount badges */}
+      {/* One-way / Round-trip toggle */}
+      {/* Search fields: From | Swap | To | Departure | Return | Passengers */}
+      {/* "Let's Search" button */}
+      {/* Promo banner */}
+    </div>
+  );
+};
+
+export default BookingBarPremium;`,
+  ThemeTogglePremium: `// Premium Component - Scenic Day/Night Toggle
+// See full source in src/components/examples/ThemeTogglePremium.jsx
+import React, { useRef, useState, useEffect, useCallback } from "react";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+
+// Inspired by Dribbble landscape scene toggles
+// Features:
+// - Full scenic day/night transition within toggle track
+// - Sky gradient: golden sunrise to starry night
+// - Rolling green hills silhouette that darken at night
+// - Animated clouds that drift in/out
+// - Twinkling stars with staggered GSAP animation
+// - Sun with expanding rays, moon with craters
+// - Knob slides with back.out easing + elastic press feedback
+// - Three sizes (sm/md/lg), controlled or uncontrolled
+
+export default function ThemeTogglePremium({
+  isDark: controlledDark,
+  onToggle,
+  size = "md",
+  showLabel = true,
+  className = "",
+}) {
+  // Internal state fallback (uncontrolled mode)
+  const [internalDark, setInternalDark] = useState(false);
+  const dark = controlledDark !== undefined ? controlledDark : internalDark;
+
+  return (
+    <button
+      className="relative overflow-hidden cursor-pointer"
+      style={{ width: 280, height: 120, borderRadius: 60 }}
+      aria-label="Toggle dark/light mode"
+      role="switch"
+      aria-checked={dark}
+    >
+      {/* Sky gradient background */}
+      {/* Stars (SVG circles with twinkle animation) */}
+      {/* Cloud puffs (SVG ellipses) */}
+      {/* Rolling hills (SVG paths) */}
+      {/* Sliding knob with Sun/Moon inside */}
+    </button>
+  );
+}`,
+  AnimatedCartPremium: `// Premium Component - Interactive Shopping Cart
+// See full source in src/components/examples/AnimatedCartPremium.jsx
+import React, { useRef, useState, useCallback } from "react";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+import { Minus, Plus } from "lucide-react";
+
+// Features:
+// - Custom SVG cart with rolling wheels on hover
+// - +/- buttons to add/remove items
+// - Items visually fill cart basket (up to 4 visible, colored boxes)
+// - Badge counter at top-right corner
+// - Click cart: drives away right → falls from top empty with bounce
+// - Fully configurable via props
+
+// Props:
+// maxVisible  - number: max visible items in cart (default 4)
+// itemColors  - string[]: colors for package items
+// cartColor   - string: cart body color
+// accentColor - string: buttons & badge color
+// onCheckout  - (count) => void: checkout callback
+// size        - "sm" | "md" | "lg"
+// className   - string: extra wrapper classes
+
+export default function AnimatedCartPremium({
+  maxVisible = 4,
+  itemColors = ["#3b82f6", "#f59e0b", "#10b981", "#ef4444"],
+  cartColor = "#334155",
+  accentColor = "#3b82f6",
+  onCheckout = null,
+  size = "md",
+  className = "",
+}) {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div className="inline-flex flex-col items-center gap-5">
+      {/* SVG Cart with wheels, handle, basket, and item slots */}
+      {/* Badge counter (red dot with number) */}
+      {/* +/- controls and count display */}
+      {/* Hint text */}
+    </div>
+  );
 }`
 };
+
+// Components that require premium/paid access
+export const premiumComponents = new Set([
+  "ProductCardSlide",
+  "ProductCardPremium",
+  "BookingBarPremium",
+  "ThemeTogglePremium",
+  "AnimatedCartPremium",
+]);
