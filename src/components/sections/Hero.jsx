@@ -113,10 +113,10 @@ const Hero = () => {
         <div className="text-center max-w-5xl mx-auto">
           {/* Badges */}
           <div className="flex flex-wrap items-center justify-center gap-3 mb-6">
-            <span className="py-1 px-3 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 text-sm font-medium">
-              ✨ Premium UI Kit
-            </span>
             <span className="py-1 px-3 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-sm font-medium">
+              🎉 100% Free & Open Source
+            </span>
+            <span className="py-1 px-3 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 text-sm font-medium">
               v1.0 Public Beta
             </span>
           </div>
@@ -140,12 +140,12 @@ const Hero = () => {
             ref={subtitleRef}
             className="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-8 leading-relaxed"
           >
-            A collection of premium{" "}
+            A free collection of{" "}
             <strong className="text-slate-900 dark:text-slate-200">
               React components
             </strong>{" "}
             with GSAP animations. Built for developers who want interactive &
-            modern websites effortlessly.
+            modern websites effortlessly. 100% free, no strings attached.
           </p>
 
           {/* Stats */}
@@ -183,6 +183,15 @@ const Hero = () => {
                 <Code2 className="w-4 h-4" />
                 View on GitHub
               </button>
+              <a
+                href="https://trakteer.id/adiyohanes19/tip"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-8 py-4 rounded-full bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-semibold shadow-lg shadow-pink-500/25 transition-all hover:scale-105 active:scale-95 flex items-center gap-2"
+              >
+                <span className="text-lg">☕</span>
+                Support Us
+              </a>
             </div>
 
             {/* Comming Soon Alert - replacing terminal command since CLI is not ready */}

@@ -92,7 +92,7 @@ const CtaFooter = () => {
               </strong>
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-10">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-8">
               <Link
                 to="/showcase"
                 className="px-7 py-3.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-semibold shadow-lg shadow-blue-500/25 transition-all hover:scale-105 active:scale-95 flex items-center gap-2"
@@ -103,6 +103,32 @@ const CtaFooter = () => {
               <button className="px-7 py-3.5 rounded-full bg-white text-slate-900 border border-slate-200 hover:bg-slate-50 hover:border-slate-300 dark:bg-slate-900 dark:hover:bg-slate-800 dark:text-white font-medium dark:border-slate-700 transition-all dark:hover:border-slate-600 flex items-center gap-2">
                 ⭐ Star on GitHub
               </button>
+            </div>
+
+            {/* ── Support Card ──────────────── */}
+            <div className="p-[2px] rounded-2xl bg-gradient-to-r from-pink-500 via-red-500 to-orange-500 mb-8 max-w-md mx-auto">
+              <div className="rounded-[14px] bg-white dark:bg-slate-900 p-6 text-center transition-colors">
+                <div className="text-4xl mb-3">☕</div>
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-1.5">
+                  Suka project ini?
+                </h3>
+                <p className="text-slate-600 dark:text-slate-400 text-sm mb-4 leading-relaxed">
+                  Semua komponen gratis! Tapi kalau kamu merasa terbantu, kamu
+                  bisa support kami lewat Trakteer.
+                </p>
+                <a
+                  href="https://trakteer.id/adiyohanes19/tip"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-bold text-sm shadow-lg shadow-pink-500/20 transition-all hover:scale-105 active:scale-95"
+                >
+                  <Heart className="w-4 h-4 fill-white" />
+                  Support via Trakteer
+                </a>
+                <p className="text-[10px] text-slate-500 dark:text-slate-600 mt-3">
+                  Setiap dukungan berarti banyak bagi kami 💖
+                </p>
+              </div>
             </div>
 
             {/* Newsletter */}

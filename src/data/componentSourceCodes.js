@@ -912,14 +912,5 @@ export default function PricingCardPremiumFashion({
 }`
 };
 
-// Components that require premium/paid access
-export const premiumComponents = new Set([
-  "ProductCardSlide",
-  "ProductCardPremium",
-  "BookingBarPremium",
-  "ThemeTogglePremium",
-  "AnimatedCartPremium",
-  "ModernDropdownPremium",
-  "PricingCardPremiumMinecraft",
-  "PricingCardPremiumFashion",
-]);
+// All components are free and open source
+// Support us at https://trakteer.id/adiyohanes19/tip
