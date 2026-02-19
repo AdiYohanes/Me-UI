@@ -2,18 +2,13 @@ import React, { useRef, useState } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Code2, X, Copy, Check, Crown, Lock } from "lucide-react";
+import { Code2, Copy, Check } from "lucide-react";
 import ProductCard from "../examples/ProductCard";
 import AnimatedCart from "../examples/AnimatedCart";
 import BookingBar from "../examples/BookingBar";
 import ThemeToggle from "../examples/ThemeToggle";
 import ModernDropdown from "../examples/ModernDropdown";
-import ProductCardSlide from "../examples/ProductCardSlide";
-import ProductCardPremium from "../examples/ProductCardPremium";
-import {
-  componentSourceCodes,
-  premiumComponents,
-} from "../../data/componentSourceCodes";
+import { componentSourceCodes } from "../../data/componentSourceCodes";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -26,7 +21,6 @@ const ShowcaseCard = ({
   className = "",
   minHeight = "min-h-[300px]",
   overflowDropdown = false,
-  isPremium = false,
 }) => {
   const [activeView, setActiveView] = useState("preview"); // "preview" | "code"
   const [copied, setCopied] = useState(false);
@@ -62,29 +56,16 @@ const ShowcaseCard = ({
           >
             Preview
           </button>
-          {isPremium ? (
-            <button
-              onClick={() => setActiveView("code")}
-              className={`flex items-center gap-1.5 px-3 py-1 rounded-md text-[10px] font-bold transition-all ${
-                activeView === "code"
-                  ? "bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-sm shadow-amber-500/20"
-                  : "text-amber-500 hover:text-amber-600 bg-amber-500/10"
-              }`}
-            >
-              <Crown className="w-3 h-3" /> Buy
-            </button>
-          ) : (
-            <button
-              onClick={() => setActiveView("code")}
-              className={`flex items-center gap-1.5 px-3 py-1 rounded-md text-[10px] font-bold transition-all ${
-                activeView === "code"
-                  ? "bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm"
-                  : "text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
-              }`}
-            >
-              <Code2 className="w-3 h-3" /> Code
-            </button>
-          )}
+          <button
+            onClick={() => setActiveView("code")}
+            className={`flex items-center gap-1.5 px-3 py-1 rounded-md text-[10px] font-bold transition-all ${
+              activeView === "code"
+                ? "bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm"
+                : "text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
+            }`}
+          >
+            <Code2 className="w-3 h-3" /> Code
+          </button>
         </div>
       </div>
 
@@ -274,72 +255,6 @@ const ComponentShowcase = () => {
                 <ModernDropdown />
               </div>
             </ShowcaseCard>
-
-            {/* ── Premium Section Divider ── */}
-            <div className="md:col-span-6 flex items-center gap-4 my-4">
-              <div className="flex-1 h-[1px] bg-gradient-to-r from-transparent via-amber-500/30 to-transparent"></div>
-              <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/20">
-                <Crown className="w-4 h-4 text-amber-500" />
-                <span className="text-sm font-bold text-amber-600 dark:text-amber-400 tracking-wide">
-                  Premium Components
-                </span>
-              </div>
-              <div className="flex-1 h-[1px] bg-gradient-to-r from-transparent via-amber-500/30 to-transparent"></div>
-            </div>
-
-            {/* ProductCardSlide (Premium) */}
-            <ShowcaseCard
-              title="Slide Card"
-              icon="👟"
-              className="md:col-span-2 row-span-2"
-              minHeight="min-h-[620px]"
-              isPremium={true}
-              code={componentSourceCodes["ProductCardSlide"]}
-            >
-              <div className="flex items-center justify-center scale-90">
-                <ProductCardSlide />
-              </div>
-            </ShowcaseCard>
-
-            {/* ProductCardPremium (Premium) */}
-            <ShowcaseCard
-              title="Premium Card"
-              icon="🔥"
-              className="md:col-span-2 row-span-2"
-              minHeight="min-h-[620px]"
-              isPremium={true}
-              code={componentSourceCodes["ProductCardPremium"]}
-            >
-              <div className="flex items-center justify-center scale-[0.85]">
-                <ProductCardPremium />
-              </div>
-            </ShowcaseCard>
-
-            {/* Premium CTA */}
-            <div className="md:col-span-2 row-span-2 flex flex-col items-center justify-center p-8 rounded-2xl border-2 border-dashed border-amber-500/20 bg-gradient-to-br from-amber-500/5 to-orange-500/5">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center mb-5 shadow-lg shadow-amber-500/20">
-                <Crown className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2 text-center">
-                Unlock Premium
-              </h3>
-              <p className="text-sm text-slate-500 dark:text-slate-400 text-center mb-6 leading-relaxed">
-                Get access to premium components with advanced animations,
-                interactions, and production-ready code.
-              </p>
-              <div className="flex items-baseline gap-1 mb-4">
-                <span className="text-3xl font-black text-slate-900 dark:text-white">
-                  $4.99
-                </span>
-                <span className="text-sm text-slate-400 line-through">
-                  $9.99
-                </span>
-              </div>
-              <button className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold py-3 rounded-xl transition-all duration-300 shadow-lg shadow-amber-500/20 flex items-center justify-center gap-2 text-sm">
-                <Lock className="w-4 h-4" />
-                Coming Soon
-              </button>
-            </div>
           </div>
         </div>
       </div>

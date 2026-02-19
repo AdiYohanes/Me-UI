@@ -655,6 +655,260 @@ export default function AnimatedCartPremium({
       {/* Hint text */}
     </div>
   );
+}`,
+  ModernDropdownPremium: `// Premium Component - Modern User Dropdown
+// See full source in src/components/examples/ModernDropdownPremium.jsx
+import React, { useRef, useState, useEffect, useCallback } from "react";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+import {
+  ChevronDown, User, Settings, Bell, CreditCard,
+  Shield, LogOut, Sparkles,
+} from "lucide-react";
+
+// Features:
+// - Glassmorphism dark panel with backdrop blur
+// - Spring open animation (scale + translate)
+// - Staggered item reveal with GSAP stagger
+// - Icon micro-animation on hover (scale + tilt)
+// - Trigger button with elastic press feedback
+// - Chevron rotates 180° on open/close
+// - Click-outside auto-close
+// - Badge counter + keyboard shortcut hints
+// - "Sign out" row with red hover highlight
+// - Fully configurable via props: userName, userEmail, avatarInitials,
+//   avatarGradient, menuItems[], onItemClick, onLogout, className
+
+export default function ModernDropdownPremium({
+  userName       = "Adi Yohanes",
+  userEmail      = "adi@indo-ui.com",
+  avatarInitials = "AY",
+  avatarGradient = ["#6366f1", "#8b5cf6"],
+  menuItems      = DEFAULT_ITEMS,
+  onItemClick    = null,
+  onLogout       = null,
+  className      = "",
+}) {
+  const containerRef = useRef(null);
+  const menuRef      = useRef(null);
+  const chevronRef   = useRef(null);
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div ref={containerRef} className={\`relative inline-block \${className}\`}>
+      {/* Trigger: avatar + name + Pro badge + chevron */}
+      {/* Dropdown panel: header profile block, menu items, logout */}
+    </div>
+  );
+}`
+  ,
+  PricingCard: `import React, { useState } from "react";
+import { Check } from "lucide-react";
+
+const DEFAULT_FEATURES = [
+  "Up to 3 projects",
+  "Basic analytics dashboard",
+  "Community support",
+  "1 GB storage",
+  "API access (100 req/day)",
+];
+
+export default function PricingCard({
+  plan = "Free",
+  price = "$0",
+  period = "/ month",
+  description = "Everything you need to get started. No credit card required.",
+  features = DEFAULT_FEATURES,
+  ctaLabel = "Get Started — Free",
+  onCta = null,
+}) {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <div
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="relative w-full max-w-[340px] select-none"
+      style={{ fontFamily: "'Inter', system-ui, sans-serif" }}
+    >
+      <div
+        className="rounded-2xl border bg-white overflow-hidden transition-all duration-300"
+        style={{
+          borderColor: isHovered ? "#c7d2fe" : "#e2e8f0",
+          boxShadow: isHovered
+            ? "0 20px 60px -12px rgba(99,102,241,0.18)"
+            : "0 4px 24px -6px rgba(0,0,0,0.06)",
+          transform: isHovered ? "translateY(-4px)" : "translateY(0)",
+        }}
+      >
+        <div className="h-1 bg-gradient-to-r from-slate-300 via-slate-400 to-slate-300" />
+        <div className="px-7 pt-7 pb-5">
+          <span className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest text-slate-500 bg-slate-100 px-3 py-1 rounded-full border border-slate-200 mb-4">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+            {plan}
+          </span>
+          <div className="flex items-end gap-1.5 mb-2">
+            <span className="text-5xl font-extrabold text-slate-900 tracking-tight leading-none">{price}</span>
+            <span className="text-slate-400 text-sm font-medium mb-1.5">{period}</span>
+          </div>
+          <p className="text-sm text-slate-500 leading-relaxed">{description}</p>
+        </div>
+        <div className="mx-7 h-px bg-slate-100" />
+        <div className="px-7 py-5 space-y-3">
+          {features.map((f, i) => (
+            <div key={i} className="flex items-start gap-3">
+              <span className="mt-0.5 flex-shrink-0 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center w-4 h-4">
+                <Check className="w-2.5 h-2.5 text-emerald-500" strokeWidth={3} />
+              </span>
+              <span className="text-sm text-slate-600 leading-snug">{f}</span>
+            </div>
+          ))}
+        </div>
+        <div className="px-7 pb-7 pt-2">
+          <button
+            onClick={onCta}
+            className="w-full py-3 rounded-xl text-sm font-bold border-2 border-slate-900 text-slate-900 bg-transparent hover:bg-slate-900 hover:text-white transition-all duration-200"
+          >
+            {ctaLabel}
+          </button>
+          <p className="text-center text-[11px] text-slate-400 mt-3 font-medium">
+            No credit card required · Cancel anytime
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}`,
+  PricingCardPremiumMinecraft: `// Premium Component — Minecraft-Theme Pricing Card
+// See full source in src/components/examples/PricingCardPremiumMinecraft.jsx
+import React, { useRef, useState } from "react";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+
+// Features:
+// - Pixel-art aesthetic: VT323 pixel font, stone/grass/dirt CSS textures via repeating-linear-gradient
+// - Custom pixel dirt/grass/sand particles (12 colored <div>s) burst upward on hover with GSAP stagger
+// - Click: TNT shake (rapid X oscillation 5 repeats) + "BOOM!" text overlay with red/orange shadow
+// - useGSAP + contextSafe for proper React SPA cleanup & no FOUC
+
+export default function PricingCardPremiumMinecraft({
+  plan = "Diamond",
+  price = "9,999",
+  currency = "Emeralds",
+  period = "/ season",
+  features = ["Unlimited server access","Diamond pickaxe tools","Priority queue bypass","Custom skin uploader"],
+  ctaLabel = "Craft Your Plan",
+  onCta = null,
+}) {
+  const containerRef = useRef(null);
+  const cardRef = useRef(null);
+  const particleRefs = useRef([]);
+  const isAnimating = useRef(false);
+  const [showBoom, setShowBoom] = useState(false);
+  const { contextSafe } = useGSAP({ scope: containerRef });
+
+  const handleHoverEnter = contextSafe(() => {
+    if (isAnimating.current) return;
+    gsap.to(cardRef.current, { y: -8, duration: 0.25, ease: "power2.out" });
+    particleRefs.current.forEach((el, i) => {
+      if (!el) return;
+      gsap.fromTo(el, { y: 0, x: 0, opacity: 0, scale: 0.5 }, {
+        y: -(40 + (i % 4) * 20), x: -20 + (i % 5) * 12, opacity: 1, scale: 1,
+        duration: 0.25, ease: "power2.out", delay: i * 0.025,
+        onComplete: () => gsap.to(el, { y: "+=20", opacity: 0, duration: 0.3 }),
+      });
+    });
+  });
+
+  const handleHoverLeave = contextSafe(() => {
+    if (isAnimating.current) return;
+    gsap.to(cardRef.current, { y: 0, duration: 0.4, ease: "elastic.out(1, 0.6)" });
+  });
+
+  const handleClick = contextSafe(() => {
+    if (isAnimating.current) return;
+    isAnimating.current = true;
+    const tl = gsap.timeline({ onComplete: () => { isAnimating.current = false; setShowBoom(false); } });
+    tl.to(cardRef.current, { scale: 1.03, duration: 0.08 })
+      .to(cardRef.current, { x: -7, duration: 0.06, ease: "power1.inOut", yoyo: true, repeat: 5 })
+      .call(() => setShowBoom(true))
+      .to(cardRef.current, { x: 0, scale: 1, duration: 0.3, ease: "elastic.out(1, 0.5)" }, "+=0.7");
+  });
+
+  return (
+    <div ref={containerRef} style={{ fontFamily: "'VT323', monospace" }}
+      className="relative w-full max-w-[340px] select-none">
+      ...
+    </div>
+  );
+}`,
+  PricingCardPremiumFashion: `// Premium Component — Luxury Fashion Pricing Card
+// See full source in src/components/examples/PricingCardPremiumFashion.jsx
+import React, { useRef, useState, useCallback } from "react";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+
+// Features:
+// - Deep charcoal/black card, gold gradient text (linear-gradient + backgroundClip)
+// - Georgia/serif font with gold hairline dividers and em-dash feature list
+// - Hover: 3D tilt (rotateX/Y up to ±8deg, perspective:900px) + radial shimmer follows cursor
+// - Click: gold ripple expands from click point (scale 0→6) + card elastic scale pop
+// - All via useGSAP + contextSafe for proper React cleanup
+
+export default function PricingCardPremiumFashion({
+  plan = "Couture",
+  price = "€299",
+  period = "/ season",
+  description = "For those who see fashion not as clothing, but as language.",
+  features = ["Unlimited bespoke collections","Personal stylist concierge","Front-row show access","Private atelier consultations"],
+  ctaLabel = "Request Access",
+  onCta = null,
+}) {
+  const containerRef = useRef(null);
+  const cardRef = useRef(null);
+  const shimmerRef = useRef(null);
+  const rippleRef = useRef(null);
+  const [showRipple, setShowRipple] = useState(false);
+  const isAnimating = useRef(false);
+  const { contextSafe } = useGSAP({ scope: containerRef });
+
+  const handleMouseMove = contextSafe((e) => {
+    const rect = cardRef.current?.getBoundingClientRect();
+    if (!rect || isAnimating.current) return;
+    const x = (e.clientX - rect.left) / rect.width;
+    const y = (e.clientY - rect.top) / rect.height;
+    gsap.to(cardRef.current, { rotateX: (0.5-y)*16, rotateY: (x-0.5)*16,
+      duration: 0.35, ease: "power1.out", transformPerspective: 900 });
+    gsap.to(shimmerRef.current, { x: x*100+"%", y: y*100+"%", opacity: 0.7, duration: 0.5 });
+  });
+
+  const handleMouseEnter = contextSafe(() => {
+    gsap.to(cardRef.current, { scale: 1.02, duration: 0.3 });
+  });
+
+  const handleMouseLeave = contextSafe(() => {
+    gsap.to(cardRef.current, { rotateX: 0, rotateY: 0, scale: 1,
+      duration: 0.6, ease: "elastic.out(1, 0.5)" });
+    gsap.to(shimmerRef.current, { opacity: 0, duration: 0.4 });
+  });
+
+  const handleClick = contextSafe((e) => {
+    e.stopPropagation();
+    if (isAnimating.current) return;
+    isAnimating.current = true;
+    setShowRipple(true);
+    const tl = gsap.timeline({ onComplete: () => { isAnimating.current = false; setShowRipple(false); } });
+    tl.to(cardRef.current, { scale: 1.04, duration: 0.15 })
+      .fromTo(rippleRef.current, { scale: 0, opacity: 0.6 }, { scale: 6, opacity: 0, duration: 0.75 }, "<")
+      .to(cardRef.current, { scale: 1, duration: 0.6, ease: "elastic.out(1, 0.4)" });
+  });
+
+  return (
+    <div ref={containerRef} style={{ fontFamily: "'Georgia', serif", perspective: 900 }}
+      className="relative w-full max-w-[340px] select-none">
+      ...
+    </div>
+  );
 }`
 };
 
@@ -665,4 +919,7 @@ export const premiumComponents = new Set([
   "BookingBarPremium",
   "ThemeTogglePremium",
   "AnimatedCartPremium",
+  "ModernDropdownPremium",
+  "PricingCardPremiumMinecraft",
+  "PricingCardPremiumFashion",
 ]);

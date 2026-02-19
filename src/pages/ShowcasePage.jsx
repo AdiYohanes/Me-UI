@@ -16,6 +16,10 @@ import ProductCardPremium from "../components/examples/ProductCardPremium";
 import BookingBarPremium from "../components/examples/BookingBarPremium";
 import ThemeTogglePremium from "../components/examples/ThemeTogglePremium";
 import AnimatedCartPremium from "../components/examples/AnimatedCartPremium";
+import ModernDropdownPremium from "../components/examples/ModernDropdownPremium";
+import PricingCard from "../components/examples/PricingCard";
+import PricingCardPremiumMinecraft from "../components/examples/PricingCardPremiumMinecraft";
+import PricingCardPremiumFashion from "../components/examples/PricingCardPremiumFashion";
 
 // ─── Sidebar menu items ────────────────────────────────────────────
 // Each menu can have multiple variants (free + premium)
@@ -79,6 +83,29 @@ const menuItems = [
     label: "Modern Dropdown",
     variants: [
       { key: "ModernDropdown", Component: ModernDropdown, isPremium: false },
+      {
+        key: "ModernDropdownPremium",
+        Component: ModernDropdownPremium,
+        isPremium: true,
+      },
+    ],
+  },
+  {
+    key: "PricingCard",
+    emoji: "💳",
+    label: "Pricing Card",
+    variants: [
+      { key: "PricingCard", Component: PricingCard, isPremium: false },
+      {
+        key: "PricingCardPremiumMinecraft",
+        Component: PricingCardPremiumMinecraft,
+        isPremium: true,
+      },
+      {
+        key: "PricingCardPremiumFashion",
+        Component: PricingCardPremiumFashion,
+        isPremium: true,
+      },
     ],
   },
 ];
@@ -101,7 +128,7 @@ const variantConfig = {
     tagColor: "bg-amber-500/10 text-amber-600 border-amber-500/20",
   },
   ThemeToggle: {
-    wrapperClass: "scale-[1.8]",
+    wrapperClass: "scale-[1.3]",
     title: "Theme Toggle",
     subtitle: "Dark/light mode toggle with spring animation",
     tag: "Free",
@@ -136,7 +163,7 @@ const variantConfig = {
     tagColor: "bg-amber-500/10 text-amber-600 border-amber-500/20",
   },
   AnimatedCart: {
-    wrapperClass: "scale-[2.5]",
+    wrapperClass: "scale-[1.8]",
     title: "Animated Cart",
     subtitle: "Animated shopping cart icon with wiggle effects",
     tag: "Free",
@@ -153,9 +180,41 @@ const variantConfig = {
   ModernDropdown: {
     wrapperClass: "",
     title: "Modern Dropdown",
-    subtitle: "Sleek user dropdown menu with staggered reveal",
+    subtitle: "Sleek user dropdown menu with staggered GSAP reveal",
     tag: "Free",
     tagColor: "bg-slate-500/10 text-slate-600 border-slate-500/20",
+  },
+  ModernDropdownPremium: {
+    wrapperClass: "",
+    title: "Premium Dropdown",
+    subtitle:
+      "Glassmorphism dark panel with spring open, staggered items & hover micro-animations",
+    tag: "Premium",
+    tagColor: "bg-amber-500/10 text-amber-600 border-amber-500/20",
+  },
+  PricingCard: {
+    wrapperClass: "",
+    title: "Free Pricing Card",
+    subtitle:
+      "Clean modern pricing card — hover to lift, feature list with checkmarks",
+    tag: "Free",
+    tagColor: "bg-blue-500/10 text-blue-600 border-blue-500/20",
+  },
+  PricingCardPremiumMinecraft: {
+    wrapperClass: "",
+    title: "Minecraft Card",
+    subtitle:
+      "Pixel-art pricing card — hover for dirt particles, click for TNT explosion",
+    tag: "Premium",
+    tagColor: "bg-amber-500/10 text-amber-600 border-amber-500/20",
+  },
+  PricingCardPremiumFashion: {
+    wrapperClass: "",
+    title: "Fashion Card",
+    subtitle:
+      "Luxury editorial card — hover for 3D tilt & shimmer, click for gold ripple",
+    tag: "Premium",
+    tagColor: "bg-amber-500/10 text-amber-600 border-amber-500/20",
   },
 };
 
@@ -167,6 +226,9 @@ const menuConfig = {
       "Booking bars for travel — from free hotel search to premium multi-tab travel booking with flights, hotels, trains and more.",
     previewAlign: "items-start pt-10",
     minHeight: "min-h-[700px]",
+    // Stacked vertically because BookingBar is a full-width component
+    forceStack: true,
+    cardMinHeight: "min-h-[280px]",
   },
   ThemeToggle: {
     accentGradient: "from-purple-500/10 via-indigo-500/5 to-transparent",
@@ -174,6 +236,7 @@ const menuConfig = {
       "Theme toggles — from a simple spring-animated switch to a scenic landscape day/night toggle with sun, moon, stars, clouds & rolling hills.",
     previewAlign: "items-center",
     minHeight: "min-h-[400px]",
+    cardMinHeight: "min-h-[220px]",
   },
   ProductCard: {
     accentGradient: "from-orange-500/10 via-red-500/5 to-transparent",
@@ -181,6 +244,7 @@ const menuConfig = {
       "Product cards for e-commerce — from free basics to premium animated designs with advanced interactions.",
     previewAlign: "items-center",
     minHeight: "min-h-[600px]",
+    cardMinHeight: "min-h-[320px]",
   },
   AnimatedCart: {
     accentGradient: "from-green-500/10 via-emerald-500/5 to-transparent",
@@ -188,13 +252,25 @@ const menuConfig = {
       "Animated carts — from a simple wiggle icon to a premium interactive cart with rolling wheels, fillable items, and cinematic checkout animation.",
     previewAlign: "items-center",
     minHeight: "min-h-[450px]",
+    cardMinHeight: "min-h-[260px]",
   },
   ModernDropdown: {
-    accentGradient: "from-slate-500/10 via-zinc-500/5 to-transparent",
+    accentGradient: "from-violet-500/10 via-indigo-500/5 to-transparent",
     description:
-      "A sleek user dropdown menu with staggered reveal animation, keyboard shortcuts, and notification badge.",
+      "Dropdown menus — from a free GSAP-animated user menu to a premium glassmorphism panel with spring open animation, staggered item reveal, icon micro-animations, keyboard shortcuts, badges, and click-outside close.",
     previewAlign: "items-start pt-16",
-    minHeight: "min-h-[400px]",
+    minHeight: "min-h-[420px]",
+    // Stacked vertically so dropdowns have room to expand downward
+    forceStack: true,
+    cardMinHeight: "min-h-[260px]",
+  },
+  PricingCard: {
+    accentGradient: "from-emerald-500/10 via-cyan-500/5 to-transparent",
+    description:
+      "Pricing cards — from a sleek free tier card to premium themed variants: a Minecraft pixel-art card with GSAP particle explosions, and a luxury fashion card with 3D tilt and gold ripple animations.",
+    previewAlign: "items-center",
+    minHeight: "min-h-[600px]",
+    cardMinHeight: "min-h-[300px]",
   },
 };
 
@@ -313,12 +389,13 @@ const VariantPreviewCard = ({
   isPremium,
   isDark,
   wrapperClass,
+  cardMinHeight = "min-h-[180px]",
 }) => {
   const cfg = variantConfig[variantKey] || {};
 
   return (
     <div
-      className={`relative rounded-2xl border overflow-visible transition-colors duration-300 ${
+      className={`relative rounded-2xl border overflow-visible transition-colors duration-300 flex flex-col ${
         isPremium
           ? isDark
             ? "border-amber-500/20 bg-slate-900/50"
@@ -330,26 +407,28 @@ const VariantPreviewCard = ({
     >
       {/* Card Header */}
       <div
-        className={`flex items-center justify-between px-6 py-4 border-b transition-colors ${
+        className={`flex items-center justify-between px-4 py-3 border-b transition-colors ${
           isDark ? "border-slate-800/50" : "border-slate-100"
         }`}
       >
-        <div>
-          <div className="flex items-center gap-2 mb-0.5">
-            {isPremium && <Crown className="w-3.5 h-3.5 text-amber-500" />}
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-1.5 mb-0.5">
+            {isPremium && (
+              <Crown className="w-3 h-3 text-amber-500 flex-shrink-0" />
+            )}
             <h4
-              className={`text-sm font-bold ${isDark ? "text-white" : "text-slate-800"}`}
+              className={`text-xs font-bold truncate ${isDark ? "text-white" : "text-slate-800"}`}
             >
               {cfg.title}
             </h4>
             <span
-              className={`text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border ${cfg.tagColor}`}
+              className={`text-[8px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full border flex-shrink-0 ${cfg.tagColor}`}
             >
               {cfg.tag}
             </span>
           </div>
           <p
-            className={`text-xs ${isDark ? "text-slate-500" : "text-slate-400"}`}
+            className={`text-[10px] leading-snug line-clamp-1 ${isDark ? "text-slate-500" : "text-slate-400"}`}
           >
             {cfg.subtitle}
           </p>
@@ -357,7 +436,9 @@ const VariantPreviewCard = ({
       </div>
 
       {/* Component Preview */}
-      <div className="p-8 flex items-center justify-center min-h-[350px] overflow-visible">
+      <div
+        className={`flex-1 p-4 flex items-center justify-center ${cardMinHeight} overflow-visible`}
+      >
         <div className={`${wrapperClass} overflow-visible`}>
           <Component />
         </div>
@@ -513,34 +594,65 @@ const ShowcasePage = () => {
             </div>
           </div>
 
-          {/* User Profile */}
-          <div
-            className={`p-4 border-t transition-colors ${isDark ? "border-slate-800 bg-slate-900" : "border-slate-200 bg-white"}`}
-          >
+          {/* Sidebar Bottom: show ModernDropdownPremium demo when that menu is active, else static user profile */}
+          {activeMenu === "ModernDropdown" ? (
             <div
-              className={`flex items-center gap-3 p-2 rounded-xl transition-colors cursor-pointer group border ${
+              className={`p-4 border-t transition-colors ${
                 isDark
-                  ? "border-transparent hover:border-slate-700 hover:bg-slate-800"
-                  : "border-transparent hover:border-slate-100 hover:bg-slate-50"
+                  ? "border-slate-800 bg-slate-900"
+                  : "border-slate-200 bg-white"
               }`}
             >
-              <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-blue-500 to-cyan-400 flex items-center justify-center text-xs font-bold text-white">
-                AY
-              </div>
-              <div className="flex-1 min-w-0">
-                <h4
-                  className={`text-sm font-semibold truncate group-hover:text-blue-500 transition-colors ${isDark ? "text-slate-300" : "text-slate-700"}`}
-                >
-                  Adi Yohanes
-                </h4>
-                <p
-                  className={`text-[10px] truncate ${isDark ? "text-slate-500" : "text-slate-400"}`}
-                >
-                  Developer
-                </p>
+              <p
+                className={`text-[10px] font-bold uppercase tracking-widest mb-3 pl-1 ${
+                  isDark ? "text-slate-600" : "text-slate-400"
+                }`}
+              >
+                Live Demo Below ↓
+              </p>
+              <ModernDropdownPremium
+                userName="Adi Yohanes"
+                userEmail="adi@indo-ui.com"
+                avatarInitials="AY"
+              />
+            </div>
+          ) : (
+            <div
+              className={`p-4 border-t transition-colors ${
+                isDark
+                  ? "border-slate-800 bg-slate-900"
+                  : "border-slate-200 bg-white"
+              }`}
+            >
+              <div
+                className={`flex items-center gap-3 p-2 rounded-xl transition-colors cursor-pointer group border ${
+                  isDark
+                    ? "border-transparent hover:border-slate-700 hover:bg-slate-800"
+                    : "border-transparent hover:border-slate-100 hover:bg-slate-50"
+                }`}
+              >
+                <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-blue-500 to-cyan-400 flex items-center justify-center text-xs font-bold text-white">
+                  AY
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h4
+                    className={`text-sm font-semibold truncate group-hover:text-blue-500 transition-colors ${
+                      isDark ? "text-slate-300" : "text-slate-700"
+                    }`}
+                  >
+                    Adi Yohanes
+                  </h4>
+                  <p
+                    className={`text-[10px] truncate ${
+                      isDark ? "text-slate-500" : "text-slate-400"
+                    }`}
+                  >
+                    Developer
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </aside>
 
         {/* ─── Preview Area ──────────────────────────────────── */}
@@ -603,18 +715,18 @@ const ShowcasePage = () => {
             >
               {/* Description Bar */}
               <div
-                className={`px-8 py-5 border-b transition-colors duration-300 ${
+                className={`px-6 py-2.5 border-b transition-colors duration-300 ${
                   isDark
                     ? "bg-slate-900/50 border-slate-800"
                     : "bg-slate-50/80 border-slate-100"
                 }`}
               >
-                <div className="flex items-start gap-3 max-w-3xl">
+                <div className="flex items-center gap-2 max-w-3xl">
                   <Sparkles
-                    className={`w-4 h-4 mt-0.5 flex-shrink-0 ${isDark ? "text-blue-400" : "text-blue-600"}`}
+                    className={`w-3.5 h-3.5 flex-shrink-0 ${isDark ? "text-blue-400" : "text-blue-600"}`}
                   />
                   <p
-                    className={`text-sm leading-relaxed ${isDark ? "text-slate-400" : "text-slate-500"}`}
+                    className={`text-xs leading-relaxed line-clamp-2 ${isDark ? "text-slate-400" : "text-slate-500"}`}
                   >
                     {activeMConfig.description}
                   </p>
@@ -623,11 +735,11 @@ const ShowcasePage = () => {
 
               {/* Component(s) Preview */}
               <div
-                className={`relative w-full p-8 transition-colors duration-300 overflow-visible ${isDark ? "bg-slate-950" : "bg-slate-50/30"}`}
+                className={`relative w-full p-5 transition-colors duration-300 overflow-visible ${isDark ? "bg-slate-950" : "bg-slate-50/30"}`}
               >
                 {/* Accent Gradient */}
                 <div
-                  className={`absolute top-0 left-0 right-0 h-[300px] bg-gradient-to-b ${activeMConfig.accentGradient} pointer-events-none`}
+                  className={`absolute top-0 left-0 right-0 h-[200px] bg-gradient-to-b ${activeMConfig.accentGradient} pointer-events-none`}
                 ></div>
 
                 {/* Grid Background */}
@@ -642,18 +754,16 @@ const ShowcasePage = () => {
                 ></div>
 
                 {/* Render variants */}
-                <div className="relative z-10 space-y-8">
-                  {activeItem?.variants.map((variant, idx) => {
-                    const vCfg = variantConfig[variant.key] || {};
-                    const isPremiumVariant = variant.isPremium;
-
-                    // If single variant (no card wrapper needed)
-                    if (activeItem.variants.length === 1) {
+                <div className="relative z-10">
+                  {activeItem?.variants.length === 1 ? (
+                    /* ── Single Variant: centered full-width display ── */
+                    (() => {
+                      const variant = activeItem.variants[0];
+                      const vCfg = variantConfig[variant.key] || {};
                       return (
                         <div key={variant.key}>
-                          {/* Single component — render directly */}
                           <div
-                            className={`flex flex-col ${activeMConfig.previewAlign || "items-center"} justify-center w-full ${activeMConfig.minHeight || "min-h-[400px]"}`}
+                            className={`flex flex-col ${activeMConfig.previewAlign || "items-center"} justify-center w-full min-h-[320px]`}
                           >
                             <div className="w-full flex justify-center">
                               <div className={vCfg.wrapperClass || ""}>
@@ -663,15 +773,13 @@ const ShowcasePage = () => {
                               </div>
                             </div>
                           </div>
-
-                          {/* Code button for single free component */}
-                          <div className="flex justify-center mt-6">
+                          <div className="flex justify-center mt-4">
                             <button
                               onClick={() => {
                                 setActiveCodeVariant(variant.key);
                                 setActiveView("code");
                               }}
-                              className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
+                              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
                                 isDark
                                   ? "bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700"
                                   : "bg-white text-slate-600 hover:bg-slate-50 border border-slate-200 shadow-sm"
@@ -682,67 +790,113 @@ const ShowcasePage = () => {
                           </div>
                         </div>
                       );
-                    }
+                    })()
+                  ) : (
+                    /* ── Multiple Variants: horizontal grid ── */
+                    <div>
+                      {/* Check if there are premium variants — split into two rows */}
+                      {(() => {
+                        const freeVariants = activeItem.variants.filter(
+                          (v) => !v.isPremium,
+                        );
+                        const premiumVariants = activeItem.variants.filter(
+                          (v) => v.isPremium,
+                        );
+                        const hasBoth =
+                          freeVariants.length > 0 && premiumVariants.length > 0;
 
-                    // Multiple variants — use card wrapper
-                    return (
-                      <div key={variant.key}>
-                        {/* Premium divider before first premium item */}
-                        {isPremiumVariant &&
-                          idx > 0 &&
-                          !activeItem.variants[idx - 1].isPremium && (
-                            <div className="flex items-center gap-4 mb-8 mt-4">
-                              <div className="flex-1 h-[1px] bg-gradient-to-r from-transparent via-amber-500/30 to-transparent"></div>
-                              <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/20">
-                                <Crown className="w-3.5 h-3.5 text-amber-500" />
-                                <span className="text-xs font-bold text-amber-600 tracking-wide">
-                                  Premium Variants
-                                </span>
-                              </div>
-                              <div className="flex-1 h-[1px] bg-gradient-to-r from-transparent via-amber-500/30 to-transparent"></div>
-                            </div>
-                          )}
+                        const cardMinHeight =
+                          activeMConfig.cardMinHeight || "min-h-[180px]";
+                        const forceStack = activeMConfig.forceStack || false;
 
-                        <VariantPreviewCard
-                          variantKey={variant.key}
-                          Component={variant.Component}
-                          isPremium={isPremiumVariant}
-                          isDark={isDark}
-                          wrapperClass={vCfg.wrapperClass || ""}
-                        />
+                        const renderGrid = (variants) => (
+                          <div
+                            className={`grid gap-4 ${
+                              forceStack || variants.length === 1
+                                ? "grid-cols-1"
+                                : variants.length === 2
+                                  ? "grid-cols-2"
+                                  : "grid-cols-3"
+                            }`}
+                          >
+                            {variants.map((variant) => {
+                              const vCfg = variantConfig[variant.key] || {};
+                              return (
+                                <div
+                                  key={variant.key}
+                                  className="flex flex-col"
+                                >
+                                  <VariantPreviewCard
+                                    variantKey={variant.key}
+                                    Component={variant.Component}
+                                    isPremium={variant.isPremium}
+                                    isDark={isDark}
+                                    wrapperClass={vCfg.wrapperClass || ""}
+                                    cardMinHeight={cardMinHeight}
+                                  />
+                                  {/* Code button per variant */}
+                                  <div className="flex justify-center mt-2.5">
+                                    {variant.isPremium ? (
+                                      <button
+                                        onClick={() => {
+                                          setActiveCodeVariant(variant.key);
+                                          setActiveView("code");
+                                        }}
+                                        className="px-4 py-2 rounded-xl text-[11px] font-bold transition-all flex items-center gap-1.5 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white shadow-lg shadow-amber-500/20"
+                                      >
+                                        <Crown className="w-3 h-3" /> Buy — View
+                                        Source
+                                      </button>
+                                    ) : (
+                                      <button
+                                        onClick={() => {
+                                          setActiveCodeVariant(variant.key);
+                                          setActiveView("code");
+                                        }}
+                                        className={`px-4 py-2 rounded-xl text-[11px] font-bold transition-all flex items-center gap-1.5 ${
+                                          isDark
+                                            ? "bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700"
+                                            : "bg-white text-slate-600 hover:bg-slate-50 border border-slate-200 shadow-sm"
+                                        }`}
+                                      >
+                                        {"</>"} View Code
+                                      </button>
+                                    )}
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        );
 
-                        {/* Code button per variant */}
-                        <div className="flex justify-center mt-4 mb-2">
-                          {isPremiumVariant ? (
-                            <button
-                              onClick={() => {
-                                setActiveCodeVariant(variant.key);
-                                setActiveView("code");
-                              }}
-                              className="px-5 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white shadow-lg shadow-amber-500/20"
-                            >
-                              <Crown className="w-3.5 h-3.5" /> Buy — View
-                              Source
-                            </button>
-                          ) : (
-                            <button
-                              onClick={() => {
-                                setActiveCodeVariant(variant.key);
-                                setActiveView("code");
-                              }}
-                              className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
-                                isDark
-                                  ? "bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700"
-                                  : "bg-white text-slate-600 hover:bg-slate-50 border border-slate-200 shadow-sm"
-                              }`}
-                            >
-                              {"</>"} View Source Code
-                            </button>
-                          )}
-                        </div>
-                      </div>
-                    );
-                  })}
+                        return (
+                          <>
+                            {hasBoth ? (
+                              <>
+                                {/* Free row */}
+                                {renderGrid(freeVariants)}
+                                {/* Premium divider */}
+                                <div className="flex items-center gap-3 my-4">
+                                  <div className="flex-1 h-[1px] bg-gradient-to-r from-transparent via-amber-500/30 to-transparent"></div>
+                                  <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20">
+                                    <Crown className="w-3 h-3 text-amber-500" />
+                                    <span className="text-[10px] font-bold text-amber-600 tracking-wide">
+                                      Premium Variants
+                                    </span>
+                                  </div>
+                                  <div className="flex-1 h-[1px] bg-gradient-to-r from-transparent via-amber-500/30 to-transparent"></div>
+                                </div>
+                                {/* Premium row */}
+                                {renderGrid(premiumVariants)}
+                              </>
+                            ) : (
+                              renderGrid(activeItem.variants)
+                            )}
+                          </>
+                        );
+                      })()}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
