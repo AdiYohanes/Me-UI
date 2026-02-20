@@ -34,7 +34,32 @@ const CtaFooter = () => {
   const containerRef = useRef(null);
 
   const ctaRef = useRef(null);
-  const [email, setEmail] = useState("");
+  // Renaming 'email' to 'feedback' logically, though in the previous step I kept the variable as 'email' in the JSX
+  // I need to make sure I update the state variable name here to match what I actually want used.
+  // Wait, in the previous step I used `value={email} onChange={(e) => setEmail(e.target.value)}`.
+  // So I should keep it as `email` for now to avoid breaking the previous step's bind, OR I should have updated both.
+  // Since I can't undo the previous step's *content* in the view, I will update the variable name here to 'feedback'
+  // AND I will use a second `replace_file_content` to fix the JSX variable usage if needed, OR I will just rename the state variables here but keep the setter compatible if I can?
+  // No, clean code -> Rename state variables.
+  // I will rename `email` to `feedback` here.
+  // ERROR HAZARD: I must make sure the JSX uses `feedback` and `setFeedback`.
+  // The previous tool call used `value={email}` and `setEmail`.
+  // So I MUST NOT rename them here unless I also fix the JSX.
+  // I already applied the JSX change with `value={email}` in the previous turn.
+  // To fix this cleanly:
+  // 1. Rename state variables to `feedback` and `setFeedback`.
+  // 2. Update `handleSubmit` to produce JSON and open URL.
+  // 3. I will issue a *separate* fix for the JSX to use `feedback` instead of `email` in the next turn or combined if possible?
+  // 'replace_file_content' only does one contiguous block.
+  // The previous edit was Lines 135-178.
+  // This edit is Lines 37-66.
+  // So I can rename state variables here.
+  // BUT the JSX determines what is valid. The JSX currently expects `email` and `setEmail`.
+  // So I should KEEP the state as `email` for now to prevent immediate breakage, BUT logically it is `feedback`.
+  // BETTER: I will rename the state variables here to `feedback` and `setFeedback`.
+  // AND I will immediately issue another tool call to fix the JSX to use `feedback`.
+
+  const [feedback, setFeedback] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
   useGSAP(
@@ -58,10 +83,34 @@ const CtaFooter = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (email) {
+    if (feedback) {
       setSubmitted(true);
+
+      // Construct JSON payload
+      const data = {
+        date: new Date().toISOString(),
+        feedback: feedback,
+        platform: navigator.userAgent,
+      };
+
+      const jsonString = JSON.stringify(data, null, 2);
+      const title = "New User Feedback";
+      const body = "```json\n" + jsonString + "\n```";
+
+      // Construct GitHub Issue URL
+      // Repository: AdiYohanes/Me-UI (as inferred from package.json name 'indo-ui' but let's check user request again... user said "json accessible by me on github")
+      // The user didn't explicitly give the repo URL in the prompt but previously I saw 'Me-UI' in footer.
+      // I will use a placeholder or best guess and ask user to confirm/verify if needed.
+      // Actually the footer link for GitHub was just '#'.
+      // I'll use `AdiYohanes/Me-UI` based on the previous implementation plan which user approved.
+      const repoUrl = "https://github.com/AdiYohanes/Me-UI/issues/new";
+      const issueUrl = `${repoUrl}?title=${encodeURIComponent(title)}&body=${encodeURIComponent(body)}`;
+
+      // Open in new tab
+      window.open(issueUrl, "_blank");
+
       setTimeout(() => setSubmitted(false), 3000);
-      setEmail("");
+      setFeedback("");
     }
   };
 
@@ -132,48 +181,75 @@ const CtaFooter = () => {
             </div>
 
             {/* Newsletter */}
+            {/* Feedback / Masukan Section */}
             <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 dark:bg-slate-900/50 dark:border-slate-800 backdrop-blur-sm transition-colors">
               <h3 className="text-base font-semibold text-slate-900 dark:text-white mb-1.5">
-                📬 Komponen Baru Setiap Minggu
+                💬 Kirim Masukan & Saran
               </h3>
               <p className="text-slate-600 dark:text-slate-400 text-xs mb-4 max-w-md mx-auto">
-                Subscribe — kami kirim komponen baru ke inbox kamu. No spam.
+                Bantu kami jadi lebih baik! Masukan kamu akan tersimpan sebagai
+                GitHub Issue (JSON).
               </p>
 
               <form
                 onSubmit={handleSubmit}
-                className="flex flex-col sm:flex-row gap-2.5 max-w-md mx-auto"
+                className="flex flex-col gap-3 max-w-md mx-auto"
               >
-                <input
-                  type="email"
-                  placeholder="email@kamu.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="flex-1 px-4 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/50 dark:bg-slate-800 dark:border-slate-700 dark:text-white dark:placeholder-slate-500 transition-all text-sm"
+                <textarea
+                  placeholder="Tulis masukan kamu di sini..."
+                  value={feedback}
+                  onChange={(e) => setFeedback(e.target.value)}
+                  className="w-full px-4 py-3 rounded-xl bg-white border border-slate-200 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/50 dark:bg-slate-800 dark:border-slate-700 dark:text-white dark:placeholder-slate-500 transition-all text-sm min-h-[100px] resize-none"
                   required
                 />
-                <button
-                  type="submit"
-                  className={`px-5 py-2.5 rounded-xl font-semibold text-sm transition-all flex items-center justify-center gap-2 ${
-                    submitted
-                      ? "bg-green-600 text-white"
-                      : "bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-500/20"
-                  }`}
-                >
-                  {submitted ? (
-                    <>
-                      <Check className="w-4 h-4" /> Subscribed!
-                    </>
-                  ) : (
-                    <>
-                      <Send className="w-4 h-4" /> Subscribe
-                    </>
-                  )}
-                </button>
+                <div className="flex gap-2">
+                  <button
+                    type="submit"
+                    className={`flex-1 px-5 py-2.5 rounded-xl font-semibold text-sm transition-all flex items-center justify-center gap-2 ${
+                      submitted
+                        ? "bg-green-600 text-white"
+                        : "bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-500/20"
+                    }`}
+                  >
+                    {submitted ? (
+                      <>
+                        <Check className="w-4 h-4" /> Redirecting...
+                      </>
+                    ) : (
+                      <>
+                        <Github className="w-4 h-4" /> Buat Issue
+                      </>
+                    )}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (!feedback) return;
+                      const data = {
+                        date: new Date().toISOString(),
+                        feedback: feedback,
+                        platform: navigator.userAgent,
+                      };
+                      const blob = new Blob([JSON.stringify(data, null, 2)], {
+                        type: "application/json",
+                      });
+                      const url = URL.createObjectURL(blob);
+                      const a = document.createElement("a");
+                      a.href = url;
+                      a.download = "feedback.json";
+                      a.click();
+                      URL.revokeObjectURL(url);
+                    }}
+                    className="px-4 py-2.5 rounded-xl font-semibold text-sm transition-all flex items-center justify-center gap-2 bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 dark:bg-slate-800 dark:text-slate-200 dark:border-slate-700 dark:hover:bg-slate-700"
+                    title="Download as JSON"
+                  >
+                    <span className="text-xs">⬇️ JSON</span>
+                  </button>
+                </div>
               </form>
 
               <p className="text-[10px] text-slate-500 dark:text-slate-600 mt-3">
-                500+ developer Indonesia. Unsubscribe kapan saja.
+                GitHub Issue akan terbuka otomatis dengan format JSON.
               </p>
             </div>
           </div>
