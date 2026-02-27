@@ -159,7 +159,7 @@ const ProductCard = ({
       className={`relative w-full max-w-[340px] bg-slate-900 rounded-3xl overflow-hidden shadow-2xl font-sans text-white border border-slate-800 mx-auto ${className}`}
     >
       {/* ── Image Area ── */}
-      <div className="relative h-64 w-full bg-slate-800/50 flex items-center justify-center p-6 group overflow-hidden">
+      <div className="relative h-64 w-full bg-slate-800/50 flex items-center justify-center p-6 group overflow-hidden rounded-t-3xl">
         <button
           onClick={handleFavorite}
           className="absolute top-4 right-4 z-20 p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors backdrop-blur-sm"
@@ -176,10 +176,10 @@ const ProductCard = ({
           src={currentImage}
           alt={p.name}
           loading="lazy"
-          className="w-full object-contain drop-shadow-[0_15px_15px_rgba(0,0,0,0.5)] z-10"
+          className="w-full h-full object-contain drop-shadow-[0_15px_15px_rgba(0,0,0,0.5)] z-10"
         />
 
-        <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        <div className="absolute inset-0 rounded-t-3xl bg-gradient-to-tr from-blue-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
       </div>
 
       {/* ── Content ── */}

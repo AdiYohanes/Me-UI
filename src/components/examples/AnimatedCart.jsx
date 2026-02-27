@@ -42,7 +42,7 @@ const AnimatedCart = () => {
   });
 
   return (
-    <div ref={cartRef} className="flex flex-col items-center gap-4">
+    <div ref={cartRef} className="flex flex-col items-center gap-4 p-8">
       <button
         className="relative group bg-white p-4 rounded-full shadow-lg hover:shadow-blue-500/30 transition-shadow duration-300"
         onMouseEnter={handleMouseEnter}

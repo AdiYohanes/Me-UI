@@ -22,7 +22,7 @@ const ShowcaseCard = ({
   minHeight = "min-h-[300px]",
   overflowDropdown = false,
 }) => {
-  const [activeView, setActiveView] = useState("preview"); // "preview" | "code"
+  const [activeView, setActiveView] = useState("preview");
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
@@ -33,227 +33,205 @@ const ShowcaseCard = ({
 
   return (
     <div
-      className={`relative rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 flex flex-col overflow-visible transition-colors duration-300 ${overflowDropdown ? "z-[30]" : "z-20"} ${className}`}
+      className={`relative rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden transition-colors duration-300 flex flex-col ${className}`}
     >
       {/* Card Header */}
-      <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/50 backdrop-blur-sm">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100 dark:border-slate-800 flex-shrink-0">
         <div className="flex items-center gap-2">
           <span className="text-lg">{icon}</span>
-          <h4 className="text-sm font-bold text-slate-900 dark:text-white">
+          <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300">
             {title}
-          </h4>
+          </h3>
         </div>
-
-        {/* View Toggle */}
-        <div className="flex bg-slate-100 dark:bg-slate-900 rounded-lg p-1 border border-slate-200 dark:border-slate-800 transition-colors">
+        <div className="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg p-0.5">
           <button
             onClick={() => setActiveView("preview")}
-            className={`px-3 py-1 rounded-md text-[10px] font-bold transition-all ${
+            className={`px-3 py-1 rounded-md text-xs font-medium transition-all ${
               activeView === "preview"
                 ? "bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm"
-                : "text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
+                : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
             }`}
           >
             Preview
           </button>
           <button
             onClick={() => setActiveView("code")}
-            className={`flex items-center gap-1.5 px-3 py-1 rounded-md text-[10px] font-bold transition-all ${
+            className={`flex items-center gap-1 px-3 py-1 rounded-md text-xs font-medium transition-all ${
               activeView === "code"
                 ? "bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm"
-                : "text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
+                : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
             }`}
           >
-            <Code2 className="w-3 h-3" /> Code
+            <Code2 className="w-3 h-3" />
+            Code
           </button>
         </div>
       </div>
 
-      {/* Card Content Container - Uses grid stack for absolute positioning overlap or simple flex */}
-      <div
-        className={`relative flex-1 flex flex-col ${minHeight} overflow-visible`}
-      >
-        {/* PREVIEW MODE */}
+      {/* Content Area */}
+      <div className={`relative flex-1 ${minHeight}`}>
+        {/* Preview */}
         <div
-          className={`absolute inset-0 flex ${overflowDropdown ? "items-start pt-8" : "items-center"} justify-center p-6 bg-slate-50 dark:bg-slate-950 transition-all duration-300 overflow-visible ${activeView === "preview" ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"}`}
+          className={`absolute inset-0 flex items-center justify-center p-4 transition-opacity duration-300 ${
+            overflowDropdown ? "overflow-visible" : "overflow-hidden"
+          } ${activeView === "preview" ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"}`}
         >
-          {/* Background Grid Effect */}
-          <div className="absolute inset-0 overflow-hidden">
-            <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.05)_1px,transparent_1px)] dark:bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_70%,transparent_100%)]"></div>
-          </div>
-
-          {/* Live Component */}
-          <div className="relative z-10 w-full flex items-center justify-center transform transition-transform duration-500 hover:scale-[1.02]">
+          <div
+            className="flex items-center justify-center w-full h-full"
+            style={{ overflow: overflowDropdown ? "visible" : "hidden" }}
+          >
             {children}
           </div>
         </div>
 
-        {/* CODE MODE */}
+        {/* Code */}
         <div
-          className={`absolute inset-0 bg-[#0d1117] transition-opacity duration-300 flex flex-col ${activeView === "code" ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"}`}
+          className={`absolute inset-0 transition-opacity duration-300 rounded-b-2xl overflow-hidden ${
+            activeView === "code"
+              ? "opacity-100 z-10"
+              : "opacity-0 z-0 pointer-events-none"
+          }`}
         >
-          <div className="absolute top-4 right-4 z-20">
+          <div className="absolute top-2 right-2 z-20">
             <button
               onClick={handleCopy}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-medium transition-all ${
+              className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all border ${
                 copied
                   ? "bg-green-500/10 text-green-400 border-green-500/20"
-                  : "bg-slate-800 border-slate-700 text-slate-400 hover:text-white hover:border-slate-600"
+                  : "bg-slate-800/80 text-slate-300 border-slate-700 hover:bg-slate-700"
               }`}
             >
               {copied ? (
-                <Check className="w-3.5 h-3.5" />
+                <Check className="w-3 h-3" />
               ) : (
-                <Copy className="w-3.5 h-3.5" />
+                <Copy className="w-3 h-3" />
               )}
-              {copied ? "Copied" : "Copy"}
+              {copied ? "Copied!" : "Copy"}
             </button>
           </div>
-          <div className="flex-1 overflow-auto p-6 custom-scrollbar">
-            <pre className="text-xs font-mono text-slate-300 leading-relaxed whitespace-pre-wrap">
-              <code>{code}</code>
-            </pre>
-          </div>
+          <pre className="h-full overflow-auto p-4 text-xs text-slate-300 bg-slate-900 dark:bg-slate-950 font-mono leading-relaxed">
+            <code>{code}</code>
+          </pre>
         </div>
       </div>
     </div>
   );
 };
 
-// ─── Main Component ──────────────────────────────────────────────
+// ─── Main Component Showcase Section ────────────────────────────
 const ComponentShowcase = () => {
-  const containerRef = useRef(null);
-  const headerRef = useRef(null);
-  const demoRef = useRef(null);
+  const sectionRef = useRef(null);
 
   useGSAP(
     () => {
-      // Init hidden state (prevents FOUC)
-      gsap.set([headerRef.current, demoRef.current], {
-        y: 40,
+      gsap.from(".showcase-card", {
+        y: 60,
         opacity: 0,
-      });
-
-      gsap.to(headerRef.current, {
-        scrollTrigger: {
-          trigger: headerRef.current,
-          start: "top 85%",
-          once: true,
-        },
-        y: 0,
-        opacity: 1,
-        duration: 0.8,
+        duration: 0.7,
+        stagger: 0.15,
         ease: "power3.out",
-      });
-
-      gsap.to(demoRef.current, {
         scrollTrigger: {
-          trigger: demoRef.current,
-          start: "top 85%",
-          once: true,
+          trigger: sectionRef.current,
+          start: "top 80%",
         },
-        y: 0,
-        opacity: 1,
-        duration: 0.8,
-        ease: "power3.out",
       });
     },
-    { scope: containerRef },
+    { scope: sectionRef },
   );
 
   return (
     <section
-      ref={containerRef}
-      className="py-20 bg-white dark:bg-slate-900 relative overflow-hidden transition-colors duration-300"
+      ref={sectionRef}
+      className="py-20 px-4 bg-slate-50 dark:bg-slate-900 transition-colors duration-300"
     >
-      {/* Subtle background */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-blue-500/5 rounded-full blur-[100px] pointer-events-none"></div>
-
-      <div className="container mx-auto px-6">
-        {/* ── Header ─────────────────────────────────── */}
-        <div ref={headerRef} className="text-center mb-14 max-w-3xl mx-auto">
-          <span className="py-1 px-3 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-600 dark:text-purple-400 text-sm font-medium inline-block mb-3">
-            👀 Live Demo
-          </span>
-          <h2 className="text-3xl md:text-5xl font-bold mb-5 bg-gradient-to-r from-slate-900 via-slate-700 to-slate-500 dark:from-white dark:via-slate-200 dark:to-slate-400 bg-clip-text text-transparent">
-            Try it Live, No Screenshots
+      <div className="max-w-6xl mx-auto">
+        {/* Section Header */}
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-3">
+            Component Showcase
           </h2>
-          <p className="text-slate-600 dark:text-slate-400 text-lg leading-relaxed">
-            The components below are{" "}
-            <strong className="text-slate-900 dark:text-slate-200">
-              fully interactive
-            </strong>{" "}
-            — hover, click, and feel the animation.
+          <p className="text-slate-500 dark:text-slate-400 max-w-xl mx-auto">
+            Ready-to-use UI components built with React. Preview and copy the
+            source code directly.
           </p>
         </div>
 
-        {/* ── Live Demos ──────────────────────── */}
-        <div ref={demoRef} className="mb-16">
-          <div className="grid grid-cols-1 md:grid-cols-6 gap-6 max-w-7xl mx-auto">
-            {/* Booking Bar */}
+        {/* Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Booking Bar */}
+          <div className="showcase-card">
             <ShowcaseCard
               title="Booking Bar"
               icon="🏨"
-              className="md:col-span-4"
-              minHeight="min-h-[750px]"
-              overflowDropdown={true}
-              code={componentSourceCodes["BookingBar"]}
+              code={componentSourceCodes.BookingBar}
+              minHeight="min-h-[300px]"
             >
-              <div className="w-full flex items-center justify-center">
+              <div
+                style={{
+                  transform: "scale(0.82)",
+                  transformOrigin: "center center",
+                  width: "100%",
+                }}
+              >
                 <BookingBar />
               </div>
             </ShowcaseCard>
+          </div>
 
-            {/* Theme Toggle */}
+          {/* Theme Toggle */}
+          <div className="showcase-card">
             <ShowcaseCard
               title="Theme Toggle"
               icon="🌓"
-              className="md:col-span-2"
-              minHeight="min-h-[300px]"
-              code={componentSourceCodes["ThemeToggle"]}
+              code={componentSourceCodes.ThemeToggle}
+              minHeight="min-h-[220px]"
             >
-              <div className="flex items-center justify-center scale-[1.5]">
-                <ThemeToggle />
-              </div>
+              <ThemeToggle />
             </ShowcaseCard>
+          </div>
 
-            {/* ProductCard */}
+          {/* Product Card — scaled down to fit */}
+          <div className="showcase-card">
             <ShowcaseCard
               title="Product Card"
               icon="🛍️"
-              className="md:col-span-2 row-span-2"
-              minHeight="min-h-[620px]"
-              code={componentSourceCodes["ProductCard"]}
+              code={componentSourceCodes.ProductCard}
+              minHeight="min-h-[500px]"
             >
-              <div className="flex items-center justify-center scale-90">
+              <div
+                style={{
+                  transform: "scale(0.76)",
+                  transformOrigin: "center center",
+                  flexShrink: 0,
+                }}
+              >
                 <ProductCard />
               </div>
             </ShowcaseCard>
+          </div>
 
-            {/* Animated Cart */}
+          {/* Animated Cart */}
+          <div className="showcase-card">
             <ShowcaseCard
               title="Animated Cart"
               icon="🛒"
-              className="md:col-span-2"
-              minHeight="min-h-[400px]"
-              code={componentSourceCodes["AnimatedCart"]}
+              code={componentSourceCodes.AnimatedCart}
+              minHeight="min-h-[280px]"
             >
-              <div className="flex items-center justify-center scale-[2]">
-                <AnimatedCart />
-              </div>
+              <AnimatedCart />
             </ShowcaseCard>
+          </div>
 
-            {/* Modern Dropdown */}
+          {/* Modern Dropdown — full width, overflow visible for dropdown */}
+          <div className="showcase-card md:col-span-2">
             <ShowcaseCard
               title="Modern Dropdown"
               icon="💧"
-              className="md:col-span-2"
-              minHeight="min-h-[400px]"
-              code={componentSourceCodes["ModernDropdown"]}
+              code={componentSourceCodes.ModernDropdown}
+              minHeight="min-h-[320px]"
+              overflowDropdown
             >
-              <div className="flex items-center justify-center">
-                <ModernDropdown />
-              </div>
+              <ModernDropdown />
             </ShowcaseCard>
           </div>
         </div>

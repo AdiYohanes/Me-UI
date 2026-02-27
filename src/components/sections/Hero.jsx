@@ -113,9 +113,6 @@ const Hero = () => {
         <div className="text-center max-w-5xl mx-auto">
           {/* Badges */}
           <div className="flex flex-wrap items-center justify-center gap-3 mb-6">
-            <span className="py-1 px-3 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-sm font-medium">
-              🎉 100% Free & Open Source
-            </span>
             <span className="py-1 px-3 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 text-sm font-medium">
               v1.0 Public Beta
             </span>
@@ -179,10 +176,6 @@ const Hero = () => {
                 <Play className="w-4 h-4" />
                 Explore Components
               </Link>
-              <button className="px-8 py-4 rounded-full bg-white text-slate-900 border border-slate-200 hover:bg-slate-50 hover:border-slate-300 dark:bg-slate-900 dark:hover:bg-slate-800 dark:text-white font-medium dark:border-slate-700 transition-all dark:hover:border-slate-600 flex items-center gap-2">
-                <Code2 className="w-4 h-4" />
-                View on GitHub
-              </button>
               <a
                 href="https://trakteer.id/adiyohanes19/tip"
                 target="_blank"

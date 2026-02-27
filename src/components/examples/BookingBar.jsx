@@ -172,7 +172,7 @@ export default function BookingBar() {
   return (
     <div
       ref={containerRef}
-      className="w-full max-w-4xl bg-white p-6 rounded-[2rem] border border-slate-200 shadow-2xl relative select-none"
+      className="w-full max-w-4xl bg-white p-6 rounded-[2rem] border border-slate-200 shadow-xl relative select-none"
     >
       {/* Tabs */}
       <div className="flex gap-8 mb-6 px-4 border-b border-slate-200 pb-2">
@@ -191,7 +191,7 @@ export default function BookingBar() {
       </div>
 
       {/* Search Bar Container */}
-      <div className="bg-slate-50 backdrop-blur-md p-2 rounded-[1.5rem] border border-slate-200 flex flex-col md:flex-row gap-2 relative z-10 shadow-xl">
+      <div className="bg-slate-50 backdrop-blur-md p-2 md:p-3 rounded-[1.5rem] md:rounded-[2rem] border border-slate-200 flex flex-col md:flex-row items-center gap-2 md:gap-3 relative z-10 shadow-xl">
         {/* 1. Location Field */}
         <div
           className={`field-location flex-[1.5] relative p-4 rounded-2xl transition-all cursor-pointer border ${activeField === "location" ? "bg-white border-slate-300 shadow-lg" : "border-transparent hover:bg-white/50"}`}
@@ -253,7 +253,7 @@ export default function BookingBar() {
         </div>
 
         {/* Separator */}
-        <div className="hidden md:block w-[1px] bg-slate-200 my-3"></div>
+        <div className="hidden md:block w-[1px] bg-slate-200 self-stretch my-2"></div>
 
         {/* 2. Dates Field */}
         <div
@@ -321,7 +321,7 @@ export default function BookingBar() {
           )}
         </div>
 
-        <div className="hidden md:block w-[1px] bg-slate-200 my-3"></div>
+        <div className="hidden md:block w-[1px] bg-slate-200 self-stretch my-2"></div>
 
         {/* 3. Guests Field */}
         <div
@@ -435,14 +435,14 @@ export default function BookingBar() {
             e.stopPropagation();
             handleSearch();
           }}
-          className={`search-btn bg-blue-600 hover:bg-blue-500 text-white p-2 rounded-2xl shadow-lg shadow-blue-600/20 flex items-center justify-center gap-0 transition-all overflow-hidden min-w-[64px] h-[64px] self-center group ${isSearching ? "cursor-wait" : ""}`}
+          className={`search-btn bg-blue-600 hover:bg-blue-500 text-white px-5 md:px-6 rounded-2xl shadow-lg shadow-blue-600/20 flex items-center justify-center gap-0 transition-all overflow-hidden h-[64px] self-stretch md:self-auto w-full md:w-auto mt-2 md:mt-0 group ${isSearching ? "cursor-wait" : ""}`}
         >
           {isSearching ? (
             <Loader2 className="w-6 h-6 animate-spin" />
           ) : (
             <>
               <Search className="search-icon w-6 h-6 group-hover:scale-110 transition-transform" />
-              <span className="search-text hidden whitespace-nowrap text-base font-bold ml-3">
+              <span className="search-text hidden md:block whitespace-nowrap text-base font-bold ml-3">
                 Search
               </span>
             </>

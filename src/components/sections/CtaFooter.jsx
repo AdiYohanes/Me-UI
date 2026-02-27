@@ -85,32 +85,17 @@ const CtaFooter = () => {
     e.preventDefault();
     if (feedback) {
       setSubmitted(true);
+      const subject = encodeURIComponent("Saran dan Masukan untuk Me-UI");
+      const body = encodeURIComponent(feedback);
+      window.open(
+        `mailto:hello@me-ui.com?subject=${subject}&body=${body}`,
+        "_blank",
+      );
 
-      // Construct JSON payload
-      const data = {
-        date: new Date().toISOString(),
-        feedback: feedback,
-        platform: navigator.userAgent,
-      };
-
-      const jsonString = JSON.stringify(data, null, 2);
-      const title = "New User Feedback";
-      const body = "```json\n" + jsonString + "\n```";
-
-      // Construct GitHub Issue URL
-      // Repository: AdiYohanes/Me-UI (as inferred from package.json name 'indo-ui' but let's check user request again... user said "json accessible by me on github")
-      // The user didn't explicitly give the repo URL in the prompt but previously I saw 'Me-UI' in footer.
-      // I will use a placeholder or best guess and ask user to confirm/verify if needed.
-      // Actually the footer link for GitHub was just '#'.
-      // I'll use `AdiYohanes/Me-UI` based on the previous implementation plan which user approved.
-      const repoUrl = "https://github.com/AdiYohanes/Me-UI/issues/new";
-      const issueUrl = `${repoUrl}?title=${encodeURIComponent(title)}&body=${encodeURIComponent(body)}`;
-
-      // Open in new tab
-      window.open(issueUrl, "_blank");
-
-      setTimeout(() => setSubmitted(false), 3000);
-      setFeedback("");
+      setTimeout(() => {
+        setSubmitted(false);
+        setFeedback("");
+      }, 2000);
     }
   };
 
@@ -181,76 +166,49 @@ const CtaFooter = () => {
             </div>
 
             {/* Newsletter */}
-            {/* Feedback / Masukan Section */}
-            <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 dark:bg-slate-900/50 dark:border-slate-800 backdrop-blur-sm transition-colors">
-              <h3 className="text-base font-semibold text-slate-900 dark:text-white mb-1.5">
-                💬 Kirim Masukan & Saran
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-xs mb-4 max-w-md mx-auto">
-                Bantu kami jadi lebih baik! Masukan kamu akan tersimpan sebagai
-                GitHub Issue (JSON).
+            {/* Masukan Section */}
+            <div className="p-8 rounded-3xl bg-white border border-slate-200 dark:bg-slate-900 dark:border-slate-800 shadow-sm transition-colors">
+              <div className="flex items-center justify-center gap-3 mb-3">
+                <div className="w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-blue-600 dark:text-blue-400">
+                  <Send className="w-5 h-5" />
+                </div>
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+                  Kirim Masukan & Saran
+                </h3>
+              </div>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mb-6 max-w-md mx-auto leading-relaxed">
+                Punya ide brilian atau menemukan bug? Jangan ragu untuk beri
+                tahu kami. Masukanmu sangat berarti!
               </p>
 
               <form
                 onSubmit={handleSubmit}
-                className="flex flex-col gap-3 max-w-md mx-auto"
+                className="flex flex-col gap-4 max-w-md mx-auto"
               >
                 <textarea
-                  placeholder="Tulis masukan kamu di sini..."
+                  placeholder="Ketik saran, ide, atau bug yang kamu temukan..."
                   value={feedback}
                   onChange={(e) => setFeedback(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl bg-white border border-slate-200 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/50 dark:bg-slate-800 dark:border-slate-700 dark:text-white dark:placeholder-slate-500 transition-all text-sm min-h-[100px] resize-none"
+                  className="w-full px-5 py-4 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:bg-slate-950 dark:border-slate-800 dark:text-white dark:placeholder-slate-500 transition-all text-sm min-h-[120px] resize-none"
                   required
                 />
-                <div className="flex gap-2">
-                  <button
-                    type="submit"
-                    className={`flex-1 px-5 py-2.5 rounded-xl font-semibold text-sm transition-all flex items-center justify-center gap-2 ${
-                      submitted
-                        ? "bg-green-600 text-white"
-                        : "bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-500/20"
-                    }`}
-                  >
-                    {submitted ? (
-                      <>
-                        <Check className="w-4 h-4" /> Redirecting...
-                      </>
-                    ) : (
-                      <>
-                        <Github className="w-4 h-4" /> Buat Issue
-                      </>
-                    )}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      if (!feedback) return;
-                      const data = {
-                        date: new Date().toISOString(),
-                        feedback: feedback,
-                        platform: navigator.userAgent,
-                      };
-                      const blob = new Blob([JSON.stringify(data, null, 2)], {
-                        type: "application/json",
-                      });
-                      const url = URL.createObjectURL(blob);
-                      const a = document.createElement("a");
-                      a.href = url;
-                      a.download = "feedback.json";
-                      a.click();
-                      URL.revokeObjectURL(url);
-                    }}
-                    className="px-4 py-2.5 rounded-xl font-semibold text-sm transition-all flex items-center justify-center gap-2 bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 dark:bg-slate-800 dark:text-slate-200 dark:border-slate-700 dark:hover:bg-slate-700"
-                    title="Download as JSON"
-                  >
-                    <span className="text-xs">⬇️ JSON</span>
-                  </button>
-                </div>
+                <button
+                  type="submit"
+                  className={`w-full py-3.5 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 ${
+                    submitted
+                      ? "bg-emerald-500 text-white shadow-emerald-500/20"
+                      : "bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-500/25"
+                  }`}
+                >
+                  {submitted ? (
+                    <>
+                      <Check className="w-4 h-4" /> Terkirim ke Email
+                    </>
+                  ) : (
+                    <>Kirim Pesan</>
+                  )}
+                </button>
               </form>
-
-              <p className="text-[10px] text-slate-500 dark:text-slate-600 mt-3">
-                GitHub Issue akan terbuka otomatis dengan format JSON.
-              </p>
             </div>
           </div>
         </div>
