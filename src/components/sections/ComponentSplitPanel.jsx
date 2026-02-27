@@ -118,103 +118,121 @@ const ComponentGridCard = ({
   wrapperClass,
   previewScale,
   cardMinHeight,
+  autoHeight,
   onViewCode,
-}) => (
-  <div
-    className={`group flex flex-col rounded-2xl border transition-all duration-300 overflow-hidden ${
-      isDark
-        ? "border-slate-800 bg-slate-900/40 hover:border-slate-600 hover:bg-slate-900/70 hover:shadow-xl hover:shadow-black/30"
-        : "border-slate-200 bg-white hover:border-slate-300 hover:shadow-xl hover:shadow-slate-200/60 shadow-sm"
-    }`}
-  >
-    {/* Header */}
+}) => {
+  // Parse height string for non-autoHeight mode
+  const parsedHeight = cardMinHeight
+    .replace("min-h-", "")
+    .replace("[", "")
+    .replace("]", "");
+
+  return (
     <div
-      className={`flex items-center justify-between px-4 py-3 border-b transition-colors ${
+      className={`group flex flex-col rounded-2xl border transition-all duration-300 overflow-hidden ${
         isDark
-          ? "border-slate-800 bg-slate-900/60"
-          : "border-slate-100 bg-slate-50/80"
+          ? "border-slate-800 bg-slate-900/40 hover:border-slate-600 hover:bg-slate-900/70 hover:shadow-xl hover:shadow-black/30"
+          : "border-slate-200 bg-white hover:border-slate-300 hover:shadow-xl hover:shadow-slate-200/60 shadow-sm"
       }`}
     >
-      <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-1.5 mb-0.5">
-          <h4
-            className={`text-sm font-bold truncate ${isDark ? "text-white" : "text-slate-800"}`}
-          >
-            {cfg.title}
-          </h4>
-        </div>
-        <p
-          className={`text-[10px] leading-snug line-clamp-1 ${isDark ? "text-slate-500" : "text-slate-400"}`}
-        >
-          {cfg.subtitle}
-        </p>
-      </div>
-    </div>
-
-    {/* Live Preview */}
-    <div
-      className={`relative ${isDark ? "bg-slate-950" : "bg-slate-50"}`}
-      style={{
-        height: cardMinHeight
-          .replace("min-h-", "")
-          .replace("[", "")
-          .replace("]", ""),
-        overflowY: "auto",
-        overflowX: "hidden",
-        scrollbarWidth: "thin",
-        scrollbarColor: isDark ? "#334155 transparent" : "#cbd5e1 transparent",
-      }}
-    >
+      {/* Header */}
       <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: isDark
-            ? `linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px)`
-            : `linear-gradient(rgba(0,0,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0.03) 1px,transparent 1px)`,
-          backgroundSize: "24px 24px",
-        }}
-      />
-      <div className={`relative z-10 p-4 flex justify-center ${wrapperClass}`}>
-        <div
-          style={
-            previewScale
-              ? {
-                  transform: `scale(${previewScale})`,
-                  transformOrigin: "top center",
-                  width: `${100 / previewScale}%`,
-                  display: "flex",
-                  justifyContent: "center",
-                }
-              : { width: "100%", display: "flex", justifyContent: "center" }
-          }
-        >
-          <variant.Component />
-        </div>
-      </div>
-    </div>
-
-    {/* Footer */}
-    <div
-      className={`px-4 py-3 border-t flex items-center justify-end transition-colors ${
-        isDark
-          ? "border-slate-800 bg-slate-900/60"
-          : "border-slate-100 bg-slate-50/80"
-      }`}
-    >
-      <button
-        onClick={() => onViewCode(variant)}
-        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[11px] font-bold border transition-all duration-200 group/btn ${
+        className={`flex items-center justify-between px-4 py-3 border-b transition-colors ${
           isDark
-            ? "border-slate-700 text-slate-400 hover:text-white hover:bg-slate-700 hover:border-slate-600"
-            : "border-slate-200 text-slate-500 hover:text-slate-900 hover:bg-white hover:border-slate-400 hover:shadow-sm"
+            ? "border-slate-800 bg-slate-900/60"
+            : "border-slate-100 bg-slate-50/80"
         }`}
       >
-        <Code2 className="w-3 h-3 transition-transform group-hover/btn:rotate-6" />
-        View Code
-      </button>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-1.5 mb-0.5">
+            <h4
+              className={`text-sm font-bold truncate ${isDark ? "text-white" : "text-slate-800"}`}
+            >
+              {cfg.title}
+            </h4>
+          </div>
+          <p
+            className={`text-[10px] leading-snug line-clamp-1 ${isDark ? "text-slate-500" : "text-slate-400"}`}
+          >
+            {cfg.subtitle}
+          </p>
+        </div>
+      </div>
+
+      {/* Live Preview */}
+      <div
+        className={`relative ${isDark ? "bg-slate-950" : "bg-slate-50"}`}
+        style={
+          autoHeight
+            ? {
+                minHeight: parsedHeight,
+                overflowX: "hidden",
+                overflowY: "visible",
+              }
+            : {
+                height: parsedHeight,
+                overflowY: "auto",
+                overflowX: "hidden",
+                scrollbarWidth: "thin",
+                scrollbarColor: isDark
+                  ? "#334155 transparent"
+                  : "#cbd5e1 transparent",
+              }
+        }
+      >
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage: isDark
+              ? `linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px)`
+              : `linear-gradient(rgba(0,0,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0.03) 1px,transparent 1px)`,
+            backgroundSize: "24px 24px",
+          }}
+        />
+        <div
+          className={`relative z-10 p-4 flex justify-center ${wrapperClass}`}
+        >
+          <div
+            style={
+              previewScale
+                ? {
+                    transform: `scale(${previewScale})`,
+                    transformOrigin: "top center",
+                    width: `${100 / previewScale}%`,
+                    display: "flex",
+                    justifyContent: "center",
+                  }
+                : { width: "100%", display: "flex", justifyContent: "center" }
+            }
+          >
+            <variant.Component />
+          </div>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <div
+        className={`px-4 py-3 border-t flex items-center justify-end transition-colors ${
+          isDark
+            ? "border-slate-800 bg-slate-900/60"
+            : "border-slate-100 bg-slate-50/80"
+        }`}
+      >
+        <button
+          onClick={() => onViewCode(variant)}
+          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[11px] font-bold border transition-all duration-200 group/btn ${
+            isDark
+              ? "border-slate-700 text-slate-400 hover:text-white hover:bg-slate-700 hover:border-slate-600"
+              : "border-slate-200 text-slate-500 hover:text-slate-900 hover:bg-white hover:border-slate-400 hover:shadow-sm"
+          }`}
+        >
+          <Code2 className="w-3 h-3 transition-transform group-hover/btn:rotate-6" />
+          View Code
+        </button>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 // ─── Detail View (split-panel) ────────────────────────────────────────────────
 const ComponentDetailView = ({
@@ -538,6 +556,7 @@ const ComponentShowcase = ({ menuItem, menuConfig, variantConfig, isDark }) => {
                 wrapperClass={cfg.wrapperClass || ""}
                 previewScale={cfg.previewScale}
                 cardMinHeight={mCfg.cardMinHeight || "min-h-[200px]"}
+                autoHeight={mCfg.autoHeight || false}
                 onViewCode={(v) => setDetailVariant(v)}
               />
             );

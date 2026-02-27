@@ -121,6 +121,7 @@ const variantConfig = {
   },
   ProductCard: {
     wrapperClass: "",
+    previewScale: 0.78,
     title: "Product Card",
     subtitle: "Sporty product card with color variants and add-to-cart",
     tag: "Free",
@@ -128,6 +129,7 @@ const variantConfig = {
   },
   ProductCardSlide: {
     wrapperClass: "",
+    previewScale: 0.78,
     title: "Slide Card",
     subtitle: "Clean minimal card with slide-to-add cart interaction",
     tag: "Free",
@@ -135,6 +137,7 @@ const variantConfig = {
   },
   ProductCardPremium: {
     wrapperClass: "",
+    previewScale: 0.72,
     title: "Limited Edition Card",
     subtitle: "Dark header card with limited edition badge & inventory status",
     tag: "Free",
@@ -221,7 +224,8 @@ const menuConfig = {
       "Product cards for e-commerce — from basics to animated designs with advanced interactions. All free to use!",
     previewAlign: "items-center",
     minHeight: "min-h-[600px]",
-    cardMinHeight: "min-h-[320px]",
+    cardMinHeight: "min-h-[540px]",
+    autoHeight: true,
   },
   AnimatedCart: {
     accentGradient: "from-green-500/10 via-emerald-500/5 to-transparent",
