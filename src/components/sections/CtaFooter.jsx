@@ -220,9 +220,13 @@ const CtaFooter = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
             {/* Brand */}
             <div className="md:col-span-1">
-              <div className="text-xl font-bold bg-gradient-to-r from-blue-700 to-cyan-600 dark:from-blue-400 dark:to-cyan-400 bg-clip-text text-transparent mb-2">
+              <Link
+                to="/"
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                className="inline-block text-xl font-bold bg-gradient-to-r from-blue-700 to-cyan-600 dark:from-blue-400 dark:to-cyan-400 bg-clip-text text-transparent mb-2 hover:opacity-80 transition-opacity"
+              >
                 Me-UI
-              </div>
+              </Link>
               <p className="text-slate-600 dark:text-slate-500 text-sm leading-relaxed mb-3">
                 Koleksi komponen React siap pakai dengan animasi kelas dunia.
                 Made with 🇮🇩

@@ -159,14 +159,14 @@ const variantConfig = {
     tagColor: "bg-teal-500/10 text-teal-600 border-teal-500/20",
   },
   ModernDropdown: {
-    wrapperClass: "",
+    wrapperClass: "pb-52",
     title: "Modern Dropdown",
     subtitle: "Sleek user dropdown menu with staggered GSAP reveal",
     tag: "Free",
     tagColor: "bg-slate-500/10 text-slate-600 border-slate-500/20",
   },
   ModernDropdownPremium: {
-    wrapperClass: "",
+    wrapperClass: "pb-52",
     title: "Glassmorphism Dropdown",
     subtitle:
       "Glassmorphism dark panel with spring open, staggered items & hover micro-animations",
@@ -174,7 +174,7 @@ const variantConfig = {
     tagColor: "bg-violet-500/10 text-violet-600 border-violet-500/20",
   },
   PricingCard: {
-    wrapperClass: "",
+    wrapperClass: "py-10 px-4",
     title: "Free Pricing Card",
     subtitle:
       "Clean modern pricing card — hover to lift, feature list with checkmarks",
@@ -182,7 +182,7 @@ const variantConfig = {
     tagColor: "bg-blue-500/10 text-blue-600 border-blue-500/20",
   },
   PricingCardPremiumMinecraft: {
-    wrapperClass: "",
+    wrapperClass: "py-10 px-4",
     title: "Minecraft Card",
     subtitle:
       "Pixel-art pricing card — hover for dirt particles, click for TNT explosion",
@@ -190,7 +190,7 @@ const variantConfig = {
     tagColor: "bg-lime-500/10 text-lime-600 border-lime-500/20",
   },
   PricingCardPremiumFashion: {
-    wrapperClass: "",
+    wrapperClass: "py-10 px-4",
     title: "Fashion Card",
     subtitle:
       "Luxury editorial card — hover for 3D tilt & shimmer, click for gold ripple",
@@ -242,7 +242,8 @@ const menuConfig = {
     previewAlign: "items-start pt-16",
     minHeight: "min-h-[420px]",
     forceStack: true,
-    cardMinHeight: "min-h-[260px]",
+    cardMinHeight: "min-h-[400px]",
+    autoHeight: true,
   },
   PricingCard: {
     accentGradient: "from-emerald-500/10 via-cyan-500/5 to-transparent",
@@ -250,7 +251,8 @@ const menuConfig = {
       "Pricing cards — from a sleek free tier card to themed variants: a Minecraft pixel-art card with GSAP particle explosions, and a luxury fashion card with 3D tilt and gold ripple animations.",
     previewAlign: "items-center",
     minHeight: "min-h-[600px]",
-    cardMinHeight: "min-h-[300px]",
+    cardMinHeight: "min-h-[500px]",
+    autoHeight: true,
   },
 };
 
@@ -383,6 +385,7 @@ const ShowcasePage = () => {
         <div className="flex items-center gap-3">
           <Link
             to="/"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             className="text-xl font-bold tracking-tight flex items-center gap-2"
           >
             <span className="bg-gradient-to-r from-blue-700 to-cyan-600 bg-clip-text text-transparent">
